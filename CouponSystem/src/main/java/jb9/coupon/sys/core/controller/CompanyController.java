@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import coupon.sys.core.facade.ClientType;
 import coupon.sys.core.facade.CompanyFacade;
 import coupon.sys.core.main.CouponSystem;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class CompanyController {
 
@@ -55,7 +57,7 @@ public class CompanyController {
 		}
 	}
 
-	@RequestMapping(value = "/Company/deleteCoupon/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/Company/removeCoupon/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void deleteCoupon(@PathVariable("id") int id, @RequestBody Coupon coupon) {
 		CompanyFacade companyFacade = getFacade();
 		try {
