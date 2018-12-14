@@ -20,7 +20,7 @@ import coupon.sys.core.facade.ClientType;
 import coupon.sys.core.facade.CompanyFacade;
 import coupon.sys.core.main.CouponSystem;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 public class CompanyController {
 

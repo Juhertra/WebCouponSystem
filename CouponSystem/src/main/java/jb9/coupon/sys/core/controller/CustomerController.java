@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import coupon.sys.core.facade.ClientType;
 import coupon.sys.core.facade.CustomerFacade;
 import coupon.sys.core.main.CouponSystem;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class CustomerController {
 

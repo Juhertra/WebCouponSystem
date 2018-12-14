@@ -21,7 +21,7 @@ import coupon.sys.core.facade.ClientType;
 import coupon.sys.core.main.CouponSystem;
 import coupon.sys.core.utils.DataBaseProperties;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 public class AdminController {
 
