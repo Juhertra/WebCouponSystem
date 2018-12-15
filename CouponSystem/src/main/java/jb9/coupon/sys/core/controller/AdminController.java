@@ -33,8 +33,8 @@ public class AdminController {
 	private AdminFacade getFacade() {
 
 		try {
-//			adminFacade = (AdminFacade) CouponSystem.getInstance().login(admin.getUser(), admin.getPassword(), ClientType.COMPANY);
-			adminFacade = (AdminFacade) CouponSystem.getInstance().login("admin", "1234", ClientType.ADMIN);
+		adminFacade = (AdminFacade) CouponSystem.getInstance().login(DataBaseProperties.getUser(), DataBaseProperties.getPassword(), ClientType.ADMIN);
+			//adminFacade = (AdminFacade) CouponSystem.getInstance().login("admin", "1234", ClientType.ADMIN);
 		} catch (CouponSystemExceptions e) {
 			System.out.printf("Coupon System Exception", e);
 		}

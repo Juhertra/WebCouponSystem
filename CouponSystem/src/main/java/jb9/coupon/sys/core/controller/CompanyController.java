@@ -32,10 +32,10 @@ public class CompanyController {
 	private CompanyFacade getFacade() {
 
 		try {
-//			companyFacade = (CompanyFacade) CouponSystem.getInstance().login(company.getName(), company.getPassword(), ClientType.COMPANY);
-			companyFacade = (CompanyFacade) CouponSystem.getInstance().login("Hernan Company", "1234", ClientType.COMPANY);
-			company = companyFacade.getCompany("Hernan Company");
-			loggedInCompanyID = company.getId();
+		companyFacade = (CompanyFacade) CouponSystem.getInstance().login(company.getName(), company.getPassword(), ClientType.COMPANY);
+			//companyFacade = (CompanyFacade) CouponSystem.getInstance().login("Hernan Company", "1234", ClientType.COMPANY);
+//			company = companyFacade.getCompany(company.getName());
+//			loggedInCompanyID = company.getId();
 		} catch (CouponSystemExceptions e) {
 			System.out.printf("Coupon System Exception", e);
 		}

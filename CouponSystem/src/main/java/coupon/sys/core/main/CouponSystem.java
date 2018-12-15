@@ -57,7 +57,7 @@ public class CouponSystem {
 	 * Instantiates a new coupon system. Private c'tor 'hides' the public default
 	 * one. CouponSystem is a singleton
 	 */
-	private CouponSystem() {
+	protected CouponSystem() {
 		// get/create the connection pool
 		try {
 			connectionPool = ConnectionPool.getInstance();
@@ -155,8 +155,8 @@ public class CouponSystem {
 					company.setPassword(password);
 					// create a CustomerFacade, referring to this company
 					CompanyFacade companyFacade = new CompanyFacade();
-					companyFacade.setCompanyDao(companyDao);
-					companyFacade.setCouponDao(couponDao);
+//					companyFacade.setCompanyDao(companyDao);
+//					companyFacade.setCouponDao(couponDao);
 					return companyFacade;
 				}
 			} catch (CryptoHashException e) {

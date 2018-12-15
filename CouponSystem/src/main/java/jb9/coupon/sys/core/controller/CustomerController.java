@@ -26,11 +26,12 @@ public class CustomerController {
 
 	Customer customer = null;
 	CustomerFacade customerFacade = null;
+	
 	private CustomerFacade getFacade() {
 
 		try {
-//			customerFacade = (CustomerFacade) CouponSystem.getInstance().login(customer.getName(), customer.getPassword(), ClientType.CUSTOMER);
-			customerFacade = (CustomerFacade) CouponSystem.getInstance().login("John Day", "1111", ClientType.CUSTOMER);
+			customerFacade = (CustomerFacade) CouponSystem.getInstance().login(customer.getName(), customer.getPassword(), ClientType.CUSTOMER);
+		//	customerFacade = (CustomerFacade) CouponSystem.getInstance().login("John Day", "1111", ClientType.CUSTOMER);
 			customer = customerFacade.getCustomer();
 		} catch (CouponSystemExceptions e) {
 			System.out.printf("Coupon System Exception", e);

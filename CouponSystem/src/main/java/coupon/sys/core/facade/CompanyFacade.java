@@ -67,18 +67,18 @@ public class CompanyFacade implements CouponClientFacade {
 	 *
 	 * @param companyDao the new company dao
 	 */
-	public void setCompanyDao(CompanyDao companyDao) {
-		this.companyDao = companyDao;
-	}
+//	public void setCompanyDao(CompanyDao companyDao) {
+//		this.companyDao = companyDao;
+//	}
 
 	/**
 	 * Sets the coupon dao.
 	 *
 	 * @param couponDao the new coupon dao
 	 */
-	public void setCouponDao(CouponDao couponDao) {
-		this.couponDao = couponDao;
-	}
+//	public void setCouponDao(CouponDao couponDao) {
+//		this.couponDao = couponDao;
+//	}
 
 	@Override
 	// not used
