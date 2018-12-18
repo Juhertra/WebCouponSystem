@@ -346,7 +346,6 @@ public class CompanyDaoDb implements CompanyDao {
 			while (resultSet.next()) {
 				loggedInCompanyID = resultSet.getLong(1);
 				System.out.println(loggedInCompanyID);
-//				loggedInCompanyID = companyId;
 				// if authorization is successful, the ID is returned
 
 			}

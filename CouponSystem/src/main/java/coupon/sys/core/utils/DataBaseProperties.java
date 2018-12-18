@@ -17,7 +17,7 @@ public class DataBaseProperties {
 	private static String user = "admin";
 
 	/** The password. */
-	private static String password = "1234";
+	private static  String password = "1234";
 
 	/** The max connections. */
 	private static int maxConnections = 10;
@@ -45,17 +45,11 @@ public class DataBaseProperties {
 		return user;
 	}
 
-	public static void setUser(String user) {
-		DataBaseProperties.user = user;
-	}
 
 	public static String getPassword() {
 		return password;
 	}
 
-	public static void setPassword(String password) {
-		DataBaseProperties.password = password;
-	}
 
 	public static int getMaxConnections() {
 		return maxConnections;

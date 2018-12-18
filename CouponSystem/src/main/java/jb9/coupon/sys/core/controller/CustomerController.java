@@ -2,6 +2,8 @@ package jb9.coupon.sys.core.controller;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,36 +18,24 @@ import coupon.sys.core.beans.Coupon;
 import coupon.sys.core.beans.CouponType;
 import coupon.sys.core.beans.Customer;
 import coupon.sys.core.exceptions.CouponSystemExceptions;
-import coupon.sys.core.facade.ClientType;
 import coupon.sys.core.facade.CustomerFacade;
-import coupon.sys.core.main.CouponSystem;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class CustomerController {
 
 	Customer customer = null;
-	CustomerFacade customerFacade = null;
-	
-	private CustomerFacade getFacade() {
+	// CustomerFacade customerFacade = null;
 
-		try {
-			customerFacade = (CustomerFacade) CouponSystem.getInstance().login(customer.getName(), customer.getPassword(), ClientType.CUSTOMER);
-		//	customerFacade = (CustomerFacade) CouponSystem.getInstance().login("John Day", "1111", ClientType.CUSTOMER);
-			customer = customerFacade.getCustomer();
-		} catch (CouponSystemExceptions e) {
-			System.out.printf("Coupon System Exception", e);
-		}
-
-		System.out.println("Customer: " + customer.getName());
+	private CustomerFacade getFacade(HttpServletRequest request) {
+		CustomerFacade customerFacade = (CustomerFacade) request.getSession().getAttribute("facade");
 		return customerFacade;
-
 	}
-	
+
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(value = "/Customer/purchaseCoupon", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void purchaseCoupon(@RequestBody Coupon coupon) {
-		CustomerFacade customerFacade = getFacade();
+	public void purchaseCoupon(@RequestBody Coupon coupon, HttpServletRequest request) {
+		CustomerFacade customerFacade = getFacade(request);
 		try {
 			customerFacade.purchaseCoupon(coupon);
 		} catch (CouponSystemExceptions e) {
@@ -55,8 +45,8 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/Customer/getAllAvailableCoupons", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllAvailableCoupons() {
-		CustomerFacade customerFacade = getFacade();
+	public Collection<Coupon> getAllAvailableCoupons(HttpServletRequest request) {
+		CustomerFacade customerFacade = getFacade(request);
 		Collection<Coupon> getAllAvailableCoupons = null;
 		try {
 			getAllAvailableCoupons = customerFacade.getAllAvailableCoupons();
@@ -67,20 +57,21 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/Customer/getAllAvailableCouponsByType/{couponType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllAvailableCouponsByType(@PathVariable("couponType") CouponType couponType) {
-		CustomerFacade customerFacade = getFacade();
+	public Collection<Coupon> getAllAvailableCouponsByType(@PathVariable("couponType") CouponType couponType, HttpServletRequest request) {
+		CustomerFacade customerFacade = getFacade(request);
 		Collection<Coupon> getAllAvailableCouponsByType = null;
 		try {
 			getAllAvailableCouponsByType = customerFacade.getAllAvailableCouponsByType(couponType);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't get all coupons type: " + couponType + ", for customer: " + customer.getName());
+			System.out
+					.println("Couldn't get all coupons type: " + couponType + ", for customer: " + customer.getName());
 		}
 		return getAllAvailableCouponsByType;
 	}
-	
+
 	@RequestMapping(value = "/Customer/getAllAvailableCouponsByPrice/{price}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllAvailableCouponsByPrice(@PathVariable("price") double price) {
-		CustomerFacade customerFacade = getFacade();
+	public Collection<Coupon> getAllAvailableCouponsByPrice(@PathVariable("price") double price, HttpServletRequest request) {
+		CustomerFacade customerFacade = getFacade(request);
 		Collection<Coupon> getAllAvailableCouponsByPrice = null;
 		try {
 			getAllAvailableCouponsByPrice = customerFacade.getAllAvailableCouponsByPrice(price);
@@ -89,10 +80,10 @@ public class CustomerController {
 		}
 		return getAllAvailableCouponsByPrice;
 	}
-	
+
 	@RequestMapping(value = "/Customer/getAllPurchasedCoupons", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllPurchasedCoupons() {
-		CustomerFacade customerFacade = getFacade();
+	public Collection<Coupon> getAllPurchasedCoupons(HttpServletRequest request) {
+		CustomerFacade customerFacade = getFacade(request);
 		Collection<Coupon> allPurchasedCoupons = null;
 		try {
 			allPurchasedCoupons = customerFacade.getAllPurchasedCoupons();
@@ -103,22 +94,23 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/Customer/getAllPurchasedCouponsByType/{couponType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllPurchasedCouponsByType(@PathVariable("couponType") CouponType couponType) {
-		CustomerFacade customerFacade = getFacade();
+	public Collection<Coupon> getAllPurchasedCouponsByType(@PathVariable("couponType") CouponType couponType, HttpServletRequest request) {
+		CustomerFacade customerFacade = getFacade(request);
 		Collection<Coupon> getAllPurchasedCouponsByType = null;
 		try {
 			getAllPurchasedCouponsByType = customerFacade.getAllPurchasedCouponsByType(couponType);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't get all coupons type: " + couponType + ", for customer: " + customer.getName());
+			System.out
+					.println("Couldn't get all coupons type: " + couponType + ", for customer: " + customer.getName());
 		}
 		return getAllPurchasedCouponsByType;
 	}
-	
+
 	@RequestMapping(value = "/Customer/getAllPurchasedCouponsByPrice/{price}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllPurchasedCouponsByPrice(@PathVariable("price") double price) {
-		CustomerFacade customerFacade = getFacade();
+	public Collection<Coupon> getAllPurchasedCouponsByPrice(@PathVariable("price") double price, HttpServletRequest request) {
+		CustomerFacade customerFacade = getFacade(request);
 		Collection<Coupon> getAllPurchasedCouponsByPrice = null;
-	//	double price = 0;
+		// double price = 0;
 		try {
 			getAllPurchasedCouponsByPrice = customerFacade.getAllPurchasedCouponsByPrice(price);
 		} catch (CouponSystemExceptions e) {

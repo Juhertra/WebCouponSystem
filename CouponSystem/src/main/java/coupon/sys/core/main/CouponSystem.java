@@ -2,6 +2,8 @@ package coupon.sys.core.main;
 
 import java.util.Timer;
 
+import org.slf4j.LoggerFactory;
+
 import coupon.sys.core.beans.Company;
 import coupon.sys.core.beans.Customer;
 import coupon.sys.core.connectionPool.ConnectionPool;
@@ -32,6 +34,8 @@ import coupon.sys.core.utils.DataBaseProperties;
  *
  */
 public class CouponSystem {
+
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CouponSystem.class);
 
 	/** The coupon system instance. */
 	private static CouponSystem couponSystemInstance = new CouponSystem();
@@ -102,7 +106,7 @@ public class CouponSystem {
 	 */
 	public void startTimer() {
 		// start daily thread to clean old coupons
-		System.out.println(
+		LOGGER.info(
 				"Thread scheduler started. interval = " + DataBaseProperties.getTheadIntervalMinutes() + " minutes.");
 		timer = new Timer();
 		// 60000 msec = 1 min
@@ -116,7 +120,7 @@ public class CouponSystem {
 	 */
 	public void stopTimer() {
 		timer.cancel();
-		System.out.println("Thread stopped by user request.");
+		LOGGER.info("Thread stopped by user request.");
 	}
 
 	/**
@@ -130,6 +134,7 @@ public class CouponSystem {
 	 */
 	public CouponClientFacade login(String name, String password, ClientType clientType) throws CouponSystemExceptions {
 		// login of Admin
+		// DataBaseProperties admin = null;
 		if (clientType == ClientType.ADMIN) {
 			if (password.equals(DataBaseProperties.getPassword()) && name.equals(DataBaseProperties.getUser())) {
 				// admin auth success, init AdminFacade and passing the DAO's

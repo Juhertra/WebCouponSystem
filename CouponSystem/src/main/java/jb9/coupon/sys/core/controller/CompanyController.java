@@ -2,6 +2,8 @@ package jb9.coupon.sys.core.controller;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +18,7 @@ import coupon.sys.core.beans.Company;
 import coupon.sys.core.beans.Coupon;
 import coupon.sys.core.beans.CouponType;
 import coupon.sys.core.exceptions.CouponSystemExceptions;
-import coupon.sys.core.facade.ClientType;
 import coupon.sys.core.facade.CompanyFacade;
-import coupon.sys.core.main.CouponSystem;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -29,25 +29,16 @@ public class CompanyController {
 	private Coupon coupon;
 	long loggedInCompanyID = 0;
 
-	private CompanyFacade getFacade() {
+	private CompanyFacade getFacade(HttpServletRequest request) {
 
-		try {
-		companyFacade = (CompanyFacade) CouponSystem.getInstance().login(company.getName(), company.getPassword(), ClientType.COMPANY);
-			//companyFacade = (CompanyFacade) CouponSystem.getInstance().login("Hernan Company", "1234", ClientType.COMPANY);
-//			company = companyFacade.getCompany(company.getName());
-//			loggedInCompanyID = company.getId();
-		} catch (CouponSystemExceptions e) {
-			System.out.printf("Coupon System Exception", e);
-		}
-
-		System.out.println("Company: " + company.getName());
+		CompanyFacade companyFacade = (CompanyFacade) request.getSession().getAttribute("facade");
 		return companyFacade;
 
 	}
 
 	@RequestMapping(value = "/Company/createCoupon", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?>  createCoupon(@RequestBody Coupon coupon) {
-		CompanyFacade companyFacade = getFacade();
+	public ResponseEntity<?> createCoupon(@RequestBody Coupon coupon, HttpServletRequest request) {
+		CompanyFacade companyFacade = getFacade(request);
 		try {
 			companyFacade.createCoupon(coupon, loggedInCompanyID);
 			return new ResponseEntity<>(coupon.getTitle(), HttpStatus.OK);
@@ -58,8 +49,8 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/Company/removeCoupon/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void deleteCoupon(@PathVariable("id") int id, @RequestBody Coupon coupon) {
-		CompanyFacade companyFacade = getFacade();
+	public void deleteCoupon(@PathVariable("id") int id, @RequestBody Coupon coupon, HttpServletRequest request) {
+		CompanyFacade companyFacade = getFacade(request);
 		try {
 			companyFacade.removeCoupon(coupon);
 		} catch (CouponSystemExceptions e) {
@@ -68,8 +59,8 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/Company/updateCoupon/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void updateCoupon(@PathVariable("id") int id, @RequestBody Coupon coupon) {
-		CompanyFacade companyFacade = getFacade();
+	public void updateCoupon(@PathVariable("id") int id, @RequestBody Coupon coupon, HttpServletRequest request) {
+		CompanyFacade companyFacade = getFacade(request);
 		try {
 			companyFacade.updateCoupon(coupon);
 		} catch (CouponSystemExceptions e) {
@@ -78,9 +69,9 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/Company/getCoupon/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Coupon getCoupon(@PathVariable("id") long id) {
-		CompanyFacade companyFacade = getFacade();
-		//coupon = null;
+	public Coupon getCoupon(@PathVariable("id") long id, HttpServletRequest request) {
+		CompanyFacade companyFacade = getFacade(request);
+		// coupon = null;
 		try {
 			coupon = companyFacade.getCoupon(id);
 		} catch (CouponSystemExceptions e) {
@@ -90,8 +81,8 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/Company/getAllCoupons", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllCoupons() {
-		CompanyFacade companyFacade = getFacade();
+	public Collection<Coupon> getAllCoupons(HttpServletRequest request) {
+		CompanyFacade companyFacade = getFacade(request);
 		Collection<Coupon> allCoupons = null;
 		try {
 			allCoupons = companyFacade.getAllCoupons();
@@ -102,8 +93,8 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/Company/getAllCouponsByType/{couponType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllCouponsbyType(@PathVariable("couponType") CouponType couponType) {
-		CompanyFacade companyFacade = getFacade();
+	public Collection<Coupon> getAllCouponsbyType(@PathVariable("couponType") CouponType couponType, HttpServletRequest request) {
+		CompanyFacade companyFacade = getFacade(request);
 		Collection<Coupon> getAllCouponsByType = null;
 		try {
 			getAllCouponsByType = companyFacade.getAllCouponsByType(couponType);
@@ -114,10 +105,10 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/Company/getAllCouponsByMaxDate/{date}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllCouponsByDate(@PathVariable("date") String date) {
-		CompanyFacade companyFacade = getFacade();
+	public Collection<Coupon> getAllCouponsByDate(@PathVariable("date") String date, HttpServletRequest request) {
+		CompanyFacade companyFacade = getFacade(request);
 		Collection<Coupon> getAllCouponsByDate = null;
-		//String date = null;
+		// String date = null;
 		try {
 			getAllCouponsByDate = companyFacade.getAllCouponsByMaxDate(date);
 		} catch (CouponSystemExceptions e) {
@@ -125,12 +116,12 @@ public class CompanyController {
 		}
 		return getAllCouponsByDate;
 	}
-	
+
 	@RequestMapping(value = "/Company/getAllCouponsByMaxPrice/{price}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllCouponsByPrice(@PathVariable("price") double price) {
-		CompanyFacade companyFacade = getFacade();
+	public Collection<Coupon> getAllCouponsByPrice(@PathVariable("price") double price, HttpServletRequest request) {
+		CompanyFacade companyFacade = getFacade(request);
 		Collection<Coupon> getAllCouponsByPrice = null;
-	//	double price = 0;
+		// double price = 0;
 		try {
 			getAllCouponsByPrice = companyFacade.getAllCouponsByMaxPrice(price);
 		} catch (CouponSystemExceptions e) {
