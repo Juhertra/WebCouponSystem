@@ -1,4 +1,4 @@
-package coupon.sys.core.utils.filter;
+package jb9.coupon.sys.core.filter;
 
 import java.io.IOException;
 

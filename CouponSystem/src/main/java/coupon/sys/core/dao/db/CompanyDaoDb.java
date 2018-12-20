@@ -97,7 +97,7 @@ public class CompanyDaoDb implements CompanyDao {
 				pstmt.executeUpdate();
 				pstmt.close();
 				connectionPool.returnConnection(connection);
-				logger.debug("Company created succesfully");
+				logger.info("Company created succesfully");
 			}
 		} catch (SQLException e) {
 			//logger.error("Failed to create new company", e);
@@ -136,14 +136,14 @@ public class CompanyDaoDb implements CompanyDao {
 			}
 
 			if (companyNameExists == true) {
-				logger.info("Writing to DB - Removing Company");
+				System.out.println("Writing to DB - Removing Company");
 				String query = "DELETE FROM Company WHERE ID=?";
 				PreparedStatement pstmt = connection.prepareStatement(query);
 				pstmt.setLong(1, company.getId());
 				pstmt.executeUpdate();
 				pstmt.close();
 
-				logger.debug("Writing to DB - Removing Company from joined table");
+				System.out.println("Writing to DB - Removing Company from joined table");
 				String query2 = "DELETE FROM Company_Coupon WHERE Company_ID=?";
 				PreparedStatement pstmt2 = connection.prepareStatement(query2);
 				pstmt2.setLong(1, company.getId());

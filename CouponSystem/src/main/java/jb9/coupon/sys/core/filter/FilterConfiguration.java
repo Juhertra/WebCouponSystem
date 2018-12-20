@@ -1,4 +1,4 @@
-package coupon.sys.core.utils.filter;
+package jb9.coupon.sys.core.filter;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ public class FilterConfiguration {
 		CustomURLFilter customURLFilter = new CustomURLFilter();
 		
 		registrationBean.setFilter(customURLFilter);
-		registrationBean.addUrlPatterns("/admin/*", "/company/*", "/customer/*");
+		registrationBean.addUrlPatterns("/Admin/*", "/Company/*", "/Customer/*");
 		registrationBean.setOrder(2);
 		return registrationBean;
 	}
