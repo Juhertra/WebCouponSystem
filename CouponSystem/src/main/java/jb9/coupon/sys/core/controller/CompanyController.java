@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import coupon.sys.core.facade.CompanyFacade;
 @RestController
 public class CompanyController {
 
+	private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 	Company company = null;
 	CompanyFacade companyFacade = null;
 	private Coupon coupon;
@@ -43,7 +46,7 @@ public class CompanyController {
 			companyFacade.createCoupon(coupon, loggedInCompanyID);
 			return new ResponseEntity<>(coupon.getTitle(), HttpStatus.OK);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't create coupon for company: " + company.getName());
+			logger.error("Couldn't create coupon for company: " + company.getName());
 			return new ResponseEntity<>(coupon.getTitle(), HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -54,7 +57,7 @@ public class CompanyController {
 		try {
 			companyFacade.removeCoupon(coupon);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't delete coupon for company: " + company.getName());
+			logger.error("Couldn't delete coupon for company: " + company.getName());
 		}
 	}
 
@@ -64,7 +67,7 @@ public class CompanyController {
 		try {
 			companyFacade.updateCoupon(coupon);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't update coupon for company: " + company.getName());
+			logger.error("Couldn't update coupon for company: " + company.getName());
 		}
 	}
 
@@ -75,7 +78,7 @@ public class CompanyController {
 		try {
 			coupon = companyFacade.getCoupon(id);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't get coupon, " + coupon.getTitle() + ", for company: " + company.getName());
+			logger.error("Couldn't get coupon, " + coupon.getTitle() + ", for company: " + company.getName());
 		}
 		return coupon;
 	}
@@ -87,7 +90,7 @@ public class CompanyController {
 		try {
 			allCoupons = companyFacade.getAllCoupons();
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't get all coupons for company: " + company.getName());
+			logger.error("Couldn't get all coupons for company: " + company.getName());
 		}
 		return allCoupons;
 	}
@@ -99,7 +102,7 @@ public class CompanyController {
 		try {
 			getAllCouponsByType = companyFacade.getAllCouponsByType(couponType);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't get all coupons type: " + couponType + ", for company: " + company.getName());
+			logger.error("Couldn't get all coupons type: " + couponType + ", for company: " + company.getName());
 		}
 		return getAllCouponsByType;
 	}
@@ -112,7 +115,7 @@ public class CompanyController {
 		try {
 			getAllCouponsByDate = companyFacade.getAllCouponsByMaxDate(date);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't get all coupons by date: " + date + ", for company: " + company.getName());
+			logger.error("Couldn't get all coupons by date: " + date + ", for company: " + company.getName());
 		}
 		return getAllCouponsByDate;
 	}
@@ -125,7 +128,7 @@ public class CompanyController {
 		try {
 			getAllCouponsByPrice = companyFacade.getAllCouponsByMaxPrice(price);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't get all coupons by price: " + price + ", for company: " + company.getName());
+			logger.error("Couldn't get all coupons by price: " + price + ", for company: " + company.getName());
 		}
 		return getAllCouponsByPrice;
 	}

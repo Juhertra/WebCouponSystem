@@ -2,6 +2,7 @@ package coupon.sys.core.main;
 
 import java.util.Timer;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import coupon.sys.core.beans.Company;
@@ -35,7 +36,7 @@ import coupon.sys.core.utils.DataBaseProperties;
  */
 public class CouponSystem {
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CouponSystem.class);
+	private static final Logger logger = LoggerFactory.getLogger(CouponSystem.class);
 
 	/** The coupon system instance. */
 	private static CouponSystem couponSystemInstance = new CouponSystem();
@@ -67,7 +68,7 @@ public class CouponSystem {
 			connectionPool = ConnectionPool.getInstance();
 		} catch (CouponSystemExceptions e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("CouponSystem Error", e);
 		}
 		// start the daily cleaner thread
 		startTimer();
@@ -106,7 +107,7 @@ public class CouponSystem {
 	 */
 	public void startTimer() {
 		// start daily thread to clean old coupons
-		LOGGER.info(
+		logger.info(
 				"Thread scheduler started. interval = " + DataBaseProperties.getTheadIntervalMinutes() + " minutes.");
 		timer = new Timer();
 		// 60000 msec = 1 min
@@ -120,7 +121,7 @@ public class CouponSystem {
 	 */
 	public void stopTimer() {
 		timer.cancel();
-		LOGGER.info("Thread stopped by user request.");
+		logger.info("Thread stopped by user request.");
 	}
 
 	/**

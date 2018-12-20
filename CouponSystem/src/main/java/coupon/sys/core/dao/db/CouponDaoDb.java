@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import coupon.sys.core.beans.Coupon;
 import coupon.sys.core.beans.CouponType;
 import coupon.sys.core.connectionPool.ConnectionPool;
@@ -27,6 +30,8 @@ import coupon.sys.core.exceptions.DBDAOException;
  */
 public class CouponDaoDb implements CouponDao {
 
+	/** The logger. */
+	private static final Logger logger = LoggerFactory.getLogger(CouponDaoDb.class);
 	/** The connection pool. */
 	private ConnectionPool connectionPool;
 
@@ -40,10 +45,10 @@ public class CouponDaoDb implements CouponDao {
 			this.connectionPool = ConnectionPool.getInstance();
 		} catch (ConnectionPoolException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Failed to get connection pool", e);
 		} catch (CouponSystemExceptions e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Coupon System failure", e);
 		}
 	}
 
@@ -71,7 +76,7 @@ public class CouponDaoDb implements CouponDao {
 				couponTitle = couponResultSet.getString("TITLE");
 				if (couponTitle.equals(coupon.getTitle())) {
 					couponTitleExists = true;
-					System.out.println("Coupon Already Exists");
+					logger.info("Coupon Already Exists");
 					break;
 				}
 			}
@@ -79,7 +84,7 @@ public class CouponDaoDb implements CouponDao {
 			if (couponTitleExists == false) {
 
 				// Add new coupon into coupon table
-				System.out.println("Writing to DB - Creating coupon");
+				logger.info("Writing to DB - Creating coupon");
 				String query = "INSERT INTO Coupon (TITLE, START_DATE, END_DATE, AMOUNT, "
 						+ "TYPE, MESSAGE, PRICE, IMAGE) VALUES (?, ? ,? ,? ,? ,? ,?, ?)";
 				PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -115,7 +120,7 @@ public class CouponDaoDb implements CouponDao {
 			throw new DBDAOException("Failed to create new coupon", e);
 		} finally {
 			connectionPool.returnConnection(connection);
-			System.out.println("Coupon created succesfully");
+			logger.info("Coupon created succesfully");
 		}
 	}
 
@@ -152,6 +157,7 @@ public class CouponDaoDb implements CouponDao {
 			throw new DBDAOException("Failed to remove the requested coupon", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.info("Coupon ID: " + coupon.getId() + ", removed succesfully");
 		}
 	}
 
@@ -180,6 +186,7 @@ public class CouponDaoDb implements CouponDao {
 			throw new DBDAOException("Failed to update the requested coupon", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.info("Coupon ID: " + coupon.getId() + ", updated succesfully");
 		}
 	}
 

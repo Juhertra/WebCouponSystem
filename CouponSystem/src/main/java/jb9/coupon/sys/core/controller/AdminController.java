@@ -5,6 +5,8 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +28,7 @@ import coupon.sys.core.facade.AdminFacade;
 @RestController
 public class AdminController {
 
-//	private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(AdminController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	private Company company;
 	private Customer customer;
 
@@ -48,7 +50,7 @@ public class AdminController {
 			adminFacade.createCompany(company);
 			return new ResponseEntity<>(company.getName(), HttpStatus.CREATED);
 		} catch (CouponSystemExceptions e) {
-			System.out.printf("Couldn't create company: " + company.getName(), e);
+			logger.error("Couldn't create company: " + company.getName(), e);
 			return new ResponseEntity<>(company.getName(), HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -61,7 +63,7 @@ public class AdminController {
 			adminFacade.removeCompany(company);
 			return new ResponseEntity<>(company.getName(), HttpStatus.OK);
 		} catch (CouponSystemExceptions e) {
-			System.out.printf("Couldn't delete company: " + company.getName(), e);
+			logger.error("Couldn't delete company: " + company.getName(), e);
 			return new ResponseEntity<>(company.getName(), HttpStatus.BAD_REQUEST);
 
 		}
@@ -75,7 +77,7 @@ public class AdminController {
 			adminFacade.updateCompany(company);
 			return new ResponseEntity<>(company.getName(), HttpStatus.OK);
 		} catch (CouponSystemExceptions e) {
-			System.out.printf("Couldn't update company: " + company.getName(), e);
+			logger.error("Couldn't update company: " + company.getName(), e);
 			return new ResponseEntity<>(company.getName(), HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -87,9 +89,9 @@ public class AdminController {
 		try {
 			company = adminFacade.getCompanyByID(id);
 		} catch (ConnectionPoolException e) {
-			System.out.printf("Couldn't get connection", e);
+			logger.error("Couldn't get connection", e);
 		} catch (CouponSystemExceptions e) {
-			System.out.printf("Couldn't get company by ID: " + company.getName(), e);
+			logger.error("Couldn't get company by ID: " + company.getName(), e);
 		}
 		return company;
 	}
@@ -101,9 +103,9 @@ public class AdminController {
 		try {
 			company = adminFacade.getCompany(companyName);
 		} catch (ConnectionPoolException e) {
-			System.out.printf("Couldn't get connection", e);
+			logger.error("Couldn't get connection", e);
 		} catch (CouponSystemExceptions e) {
-			System.out.printf("Couldn't get company by name: " + company.getId(), e);
+			logger.error("Couldn't get company by name: " + company.getId(), e);
 		}
 		return company;
 	}
@@ -115,9 +117,9 @@ public class AdminController {
 		try {
 			getAllCompanies = adminFacade.getAllCompanies();
 		} catch (ConnectionPoolException e) {
-			System.out.printf("Couldn't get connection", e);
+			logger.error("Couldn't get connection", e);
 		} catch (CouponSystemExceptions e) {
-			System.out.printf("Couldn't get all companies", e);
+			logger.error("Couldn't get all companies", e);
 		}
 		return getAllCompanies;
 	}
@@ -133,7 +135,7 @@ public class AdminController {
 			adminFacade.createCustomer(customer);
 			return new ResponseEntity<>(customer.getName(), HttpStatus.CREATED);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't create customer: " + customer.getName());
+			logger.error("Couldn't create customer: " + customer.getName());
 			return new ResponseEntity<>(customer.getName(), HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -146,7 +148,7 @@ public class AdminController {
 			adminFacade.removeCustomer(customer);
 			return new ResponseEntity<>(customer.getName(), HttpStatus.OK);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't delete company: " + customer.getName());
+			logger.error("Couldn't delete company: " + customer.getName());
 			return new ResponseEntity<>(customer.getName(), HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -159,7 +161,7 @@ public class AdminController {
 			adminFacade.updateCustomer(customer);
 			return new ResponseEntity<>(customer.getName(), HttpStatus.OK);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't update company: " + customer.getName());
+			logger.error("Couldn't update company: " + customer.getName());
 			return new ResponseEntity<>(customer.getName(), HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -171,7 +173,7 @@ public class AdminController {
 		try {
 			customer = adminFacade.getCustomer(id);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't get company ID: " + customer.getName());
+			logger.error("Couldn't get company ID: " + customer.getName());
 		}
 		return customer;
 	}
@@ -183,7 +185,7 @@ public class AdminController {
 		try {
 			customer = adminFacade.getCustomerByName(customerName);
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't get company by name: " + customer.getId());
+			logger.error("Couldn't get company by name: " + customer.getId());
 		}
 		return customer;
 	}
@@ -195,7 +197,7 @@ public class AdminController {
 		try {
 			getAllCustomers = adminFacade.getAllCustomers();
 		} catch (CouponSystemExceptions e) {
-			System.out.println("Couldn't get all companies");
+			logger.error("Couldn't get all companies");
 		}
 		return getAllCustomers;
 	}

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import coupon.sys.core.beans.Company;
 import coupon.sys.core.beans.Coupon;
 import coupon.sys.core.beans.CouponType;
@@ -29,6 +32,8 @@ import coupon.sys.core.utils.CryptoHashAlgorithms;
  */
 public class CompanyDaoDb implements CompanyDao {
 
+	/** The logger. */
+	private static final Logger logger = LoggerFactory.getLogger(CompanyDaoDb.class);
 	/** The connection pool. */
 	private ConnectionPool connectionPool;
 	/** The logged in company ID. */
@@ -76,14 +81,14 @@ public class CompanyDaoDb implements CompanyDao {
 				companyName = resultSet.getString("NAME");
 				if (companyName.equals(company.getName())) {
 					companyNameExists = true;
-					System.out.println("Company Already Exists");
+					logger.warn("Company Already Exists");
 					break;
 				}
 			}
 			// Write company to Company table
 			if (companyNameExists == false) {
 
-				System.out.println("Writing to DB - Creating company");
+				logger.info("Writing to DB - Creating company");
 				String query = "INSERT INTO Company (NAME,PASSWORD,EMAIL) VALUES (?, ?, ?)";
 				PreparedStatement pstmt = connection.prepareStatement(query);
 				pstmt.setString(1, company.getName());
@@ -92,9 +97,10 @@ public class CompanyDaoDb implements CompanyDao {
 				pstmt.executeUpdate();
 				pstmt.close();
 				connectionPool.returnConnection(connection);
-				System.out.println("Company created succesfully");
+				logger.debug("Company created succesfully");
 			}
 		} catch (SQLException e) {
+			//logger.error("Failed to create new company", e);
 			throw new DBDAOException("Failed to create new company", e);
 		} finally {
 			connectionPool.returnConnection(connection);
@@ -113,7 +119,6 @@ public class CompanyDaoDb implements CompanyDao {
 		Connection connection;
 		Boolean companyNameExists;
 		connection = connectionPool.getConnection();
-		// Connection connection = connectionPool.getConnection();
 		try {
 
 			String verifyCompanyQuery = "SELECT * FROM Company";
@@ -126,24 +131,24 @@ public class CompanyDaoDb implements CompanyDao {
 				companyID = resultSet.getLong("ID");
 				if (companyID == company.getId()) {
 					companyNameExists = true;
-					System.out.println("Company: " + company.getName() + " found!");
+					logger.info("Company: " + company.getName() + " found!");
 				}
 			}
 
 			if (companyNameExists == true) {
-				System.out.println("Writing to DB - Removing Company");
+				logger.info("Writing to DB - Removing Company");
 				String query = "DELETE FROM Company WHERE ID=?";
 				PreparedStatement pstmt = connection.prepareStatement(query);
 				pstmt.setLong(1, company.getId());
 				pstmt.executeUpdate();
 				pstmt.close();
 
-				System.out.println("Writing to DB - Removing Company from joined table");
+				logger.debug("Writing to DB - Removing Company from joined table");
 				String query2 = "DELETE FROM Company_Coupon WHERE Company_ID=?";
 				PreparedStatement pstmt2 = connection.prepareStatement(query2);
 				pstmt2.setLong(1, company.getId());
 				pstmt2.executeUpdate();
-				System.out.println("Company removed succesfully");
+				logger.info("Company removed succesfully");
 				pstmt2.close();
 			}
 		} catch (
@@ -181,20 +186,20 @@ public class CompanyDaoDb implements CompanyDao {
 				companyID = resultSet.getLong("ID");
 				if (companyID == company.getId()) {
 					companyNameExists = true;
-					System.out.println("Company: " + company.getName() + " found!");
+					logger.info("Company: " + company.getName() + " found!");
 				}
 			}
 
 			if (companyNameExists == true) {
 
-				System.out.println("Writing to DB - Updating Company");
+				logger.info("Writing to DB - Updating Company");
 				String query = "UPDATE Company SET PASSWORD=?, EMAIL=? WHERE ID=?";
 				PreparedStatement pstmt = connection.prepareStatement(query);
 				pstmt.setString(1, company.getPassword());
 				pstmt.setString(2, company.getEmail());
 				pstmt.setLong(3, company.getId());
 				pstmt.executeUpdate();
-				System.out.println("Company updated successfully.");
+				logger.info("Company updated successfully.");
 				pstmt.close();
 			}
 
@@ -264,7 +269,6 @@ public class CompanyDaoDb implements CompanyDao {
 				allCompanies.add(company);
 			}
 			pstmt.close();
-			System.out.println(company);
 		} catch (SQLException e) {
 			throw new DBDAOException("Failed to get all companies", e);
 		} catch (CryptoHashException e) {
@@ -345,11 +349,10 @@ public class CompanyDaoDb implements CompanyDao {
 			ResultSet resultSet = pstmt.executeQuery();
 			while (resultSet.next()) {
 				loggedInCompanyID = resultSet.getLong(1);
-				System.out.println(loggedInCompanyID);
 				// if authorization is successful, the ID is returned
 
 			}
-			System.out.println("Login Successfully");
+			logger.info("Login Successfully");
 			pstmt.close();
 			return loggedInCompanyID;
 		} catch (SQLException e) {

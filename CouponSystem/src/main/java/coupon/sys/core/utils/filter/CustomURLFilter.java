@@ -11,15 +11,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CustomURLFilter implements Filter{
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CustomURLFilter.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(CustomURLFilter.class);
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		LOGGER.info("######## Initializing CustomURLFilter filter ########");
+		logger.info("######## Initializing CustomURLFilter filter ########");
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public class CustomURLFilter implements Filter{
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		
-		LOGGER.info("This filter is only called when request is mapped for /admin /company /customer resources");
+		logger.info("This filter is only called when request is mapped for /admin /company /customer resources");
 		System.out.println("I am from filter");
 		System.out.println(request.getSession().getAttribute("facade"));
 		if(request.getSession().getAttribute("facade") == null) {

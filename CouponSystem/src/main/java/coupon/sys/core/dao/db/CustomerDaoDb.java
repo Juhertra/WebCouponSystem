@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import coupon.sys.core.beans.Coupon;
 import coupon.sys.core.beans.CouponType;
 import coupon.sys.core.beans.Customer;
@@ -30,6 +33,8 @@ import coupon.sys.core.utils.CryptoHashAlgorithms;
  */
 public class CustomerDaoDb implements CustomerDao {
 
+	/** The logger. */
+	private static final Logger logger = LoggerFactory.getLogger(CustomerDaoDb.class);
 	/** The connection pool. */
 	private ConnectionPool connectionPool;
 	/** The logged in customer ID. */
@@ -72,14 +77,14 @@ public class CustomerDaoDb implements CustomerDao {
 				customerName = resultSet.getString("NAME");
 				if (customerName.equals(customer.getName())) {
 					custamerNameExists = true;
-					System.out.println("Customer Already Exists");
+					logger.warn("Customer Already Exists");
 					break;
 				}
 			}
 
 			// Write customer to Customer table
 			if (custamerNameExists == false) {
-				System.out.println("Writing to DB - Creating Customer");
+				logger.info("Writing to DB - Creating Customer");
 				String query = "INSERT INTO Customer (NAME, PASSWORD) VALUES (?, ?)";
 				PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 				pstmt.setString(1, customer.getName());
@@ -106,7 +111,7 @@ public class CustomerDaoDb implements CustomerDao {
 
 		Connection connection = connectionPool.getConnection();
 		try {
-			System.out.println("Writing to DB - Removing Customer");
+			logger.info("Writing to DB - Removing Customer");
 			String query = "DELETE FROM Customer WHERE ID=?";
 			PreparedStatement pstmt = connection.prepareStatement(query);
 
@@ -120,7 +125,7 @@ public class CustomerDaoDb implements CustomerDao {
 			pstmt2.setLong(1, customer.getId());
 			pstmt2.executeUpdate();
 			pstmt2.close();
-			System.out.println("Customer removed successfully.");
+			logger.info("Customer removed successfully.");
 		} catch (SQLException e) {
 			throw new DBDAOException("Failed to remove the requested customer", e);
 		} finally {
@@ -141,14 +146,14 @@ public class CustomerDaoDb implements CustomerDao {
 
 		Connection connection = connectionPool.getConnection();
 		try {
-			System.out.println("Writing to DB - Updating Customer");
+			logger.info("Writing to DB - Updating Customer");
 			String query = "UPDATE Customer SET NAME=?, PASSWORD=? WHERE ID=?";
 			PreparedStatement pstmt = connection.prepareStatement(query);
 			pstmt.setString(1, customer.getName());
 			pstmt.setString(2, customer.getPassword());
 			pstmt.setLong(3, customer.getId());
 			pstmt.executeUpdate();
-			System.out.println("Customer updated successfully.");
+			logger.info("Customer updated successfully.");
 			pstmt.close();
 		} catch (SQLException e) {
 			throw new DBDAOException("Failed to update the requested customer", e);
@@ -171,7 +176,7 @@ public class CustomerDaoDb implements CustomerDao {
 		Customer customer = new Customer();
 		Connection connection = connectionPool.getConnection();
 		try {
-			System.out.println("Writing to DB - Selecting Customer");
+			logger.info("Writing to DB - Selecting Customer");
 			String query = "SELECT * FROM Customer WHERE ID=?";
 			PreparedStatement pstmt = connection.prepareStatement(query);
 			pstmt.setLong(1, id);
@@ -207,7 +212,7 @@ public class CustomerDaoDb implements CustomerDao {
 		List<Customer> allCustomers = new ArrayList<Customer>();
 		Connection connection = connectionPool.getConnection();
 		try {
-			System.out.println("Writing to DB - Getting all Customers");
+			logger.info("Writing to DB - Getting all Customers");
 			String query = "SELECT * FROM Customer";
 			PreparedStatement pstmt = connection.prepareStatement(query);
 			ResultSet resultSet = pstmt.executeQuery();
@@ -219,7 +224,7 @@ public class CustomerDaoDb implements CustomerDao {
 				customer.setPassword(resultSet.getString("PASSWORD"));
 				allCustomers.add(customer);
 			}
-			System.out.println("All customers presented successfully");
+			logger.info("All customers presented successfully");
 			pstmt.close();
 		} catch (SQLException e) {
 			throw new DBDAOException("Failed to get all customers", e);

@@ -3,6 +3,9 @@ package coupon.sys.core.facade;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import coupon.sys.core.beans.Coupon;
 import coupon.sys.core.beans.CouponType;
 import coupon.sys.core.beans.Customer;
@@ -11,6 +14,7 @@ import coupon.sys.core.dao.CustomerDao;
 import coupon.sys.core.dao.db.CouponDaoDb;
 import coupon.sys.core.dao.db.CustomerDaoDb;
 import coupon.sys.core.exceptions.CouponSystemExceptions;
+import jb9.coupon.sys.core.controller.AdminController;
 
 /**
  * The Class CustomerFacade.
@@ -21,6 +25,9 @@ import coupon.sys.core.exceptions.CouponSystemExceptions;
 //
 public class CustomerFacade implements CouponClientFacade {
 
+	/** The logger. */
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	
 	/** The customer dao. */
 	private CustomerDao customerDao = new CustomerDaoDb();
 
@@ -230,13 +237,12 @@ public class CustomerFacade implements CouponClientFacade {
 		}
 
 		customerDao.addCouponToCustomer(couponFromDB, this.customer);
-		System.out.println("coupon purchased by customer " + customer.getName());
+		logger.info("coupon purchased by customer " + customer.getName());
 
 		// decrease amount
 		couponFromDB.setAmount(couponFromDB.getAmount() - 1);
 		couponDao.updateCoupon(couponFromDB);
-		System.out.println(couponFromDB);
-		System.out.println(
+		logger.info(
 				"Coupon: " + couponFromDB.getTitle() + "ID: " + couponFromDB.getId() + " new amount updated in db");
 	}
 }
