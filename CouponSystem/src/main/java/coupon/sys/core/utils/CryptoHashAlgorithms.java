@@ -5,6 +5,9 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.xml.bind.DatatypeConverter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import coupon.sys.core.exceptions.CouponSystemExceptions;
 import coupon.sys.core.exceptions.CryptoHashException;
 
@@ -13,6 +16,9 @@ import coupon.sys.core.exceptions.CryptoHashException;
  */
 public class CryptoHashAlgorithms {
 
+	/** The Logger */
+	private static final Logger logger = LoggerFactory.getLogger(CryptoHashAlgorithms.class);
+	
 	/*
 	 * Hash password.
 	 * 
@@ -36,6 +42,7 @@ public class CryptoHashAlgorithms {
 			byte[] digestedBytes = messageDigest.digest();
 			hashValue = DatatypeConverter.printHexBinary(digestedBytes).toLowerCase();
 		} catch (NoSuchAlgorithmException e) {
+			logger.error("Algorithm Not supported", new CryptoHashException(e));
 			throw new CryptoHashException("Algorithm Not supported", e);
 		}
 		return hashValue;

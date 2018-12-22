@@ -44,10 +44,8 @@ public class CouponDaoDb implements CouponDao {
 		try {
 			this.connectionPool = ConnectionPool.getInstance();
 		} catch (ConnectionPoolException e) {
-			// TODO Auto-generated catch block
 			logger.error("Failed to get connection pool", e);
 		} catch (CouponSystemExceptions e) {
-			// TODO Auto-generated catch block
 			logger.error("Coupon System failure", e);
 		}
 	}
@@ -76,7 +74,7 @@ public class CouponDaoDb implements CouponDao {
 				couponTitle = couponResultSet.getString("TITLE");
 				if (couponTitle.equals(coupon.getTitle())) {
 					couponTitleExists = true;
-					logger.info("Coupon Already Exists");
+					logger.warn("Coupon Already Exists");
 					break;
 				}
 			}
@@ -116,11 +114,13 @@ public class CouponDaoDb implements CouponDao {
 				pstmt.executeUpdate();
 				pstmt.close();
 			}
+			logger.info("Coupon created succesfully");
 		} catch (SQLException e) {
+			logger.error("Failed to create new coupon", new DBDAOException(e));
 			throw new DBDAOException("Failed to create new coupon", e);
 		} finally {
 			connectionPool.returnConnection(connection);
-			logger.info("Coupon created succesfully");
+			logger.debug("Connection returned");
 		}
 	}
 
@@ -153,11 +153,13 @@ public class CouponDaoDb implements CouponDao {
 			pstmt3.setLong(1, coupon.getId());
 			pstmt3.executeUpdate();
 			pstmt3.close();
+			logger.info("Coupon ID: " + coupon.getId() + ", removed succesfully");
 		} catch (SQLException e) {
+			logger.error("Failed to remove the requested coupon", new DBDAOException(e));
 			throw new DBDAOException("Failed to remove the requested coupon", e);
 		} finally {
 			connectionPool.returnConnection(connection);
-			logger.info("Coupon ID: " + coupon.getId() + ", removed succesfully");
+			logger.debug("Connection returned");
 		}
 	}
 
@@ -182,11 +184,13 @@ public class CouponDaoDb implements CouponDao {
 			pstmt.setLong(6, coupon.getId());
 			pstmt.executeUpdate();
 			pstmt.close();
+			logger.info("Coupon ID: " + coupon.getId() + ", updated succesfully");
 		} catch (SQLException e) {
+			logger.error("Failed to update the requested coupon", new DBDAOException(e));
 			throw new DBDAOException("Failed to update the requested coupon", e);
 		} finally {
 			connectionPool.returnConnection(connection);
-			logger.info("Coupon ID: " + coupon.getId() + ", updated succesfully");
+			logger.debug("Connection returned");
 		}
 	}
 
@@ -220,9 +224,11 @@ public class CouponDaoDb implements CouponDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to get the requested coupon", new DBDAOException(e));
 			throw new DBDAOException("Failed to get the requested coupon", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 
 		return coupon;
@@ -260,9 +266,11 @@ public class CouponDaoDb implements CouponDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to get all coupons", new DBDAOException(e));
 			throw new DBDAOException("Failed to get all coupons", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 		return allCoupons;
 	}
@@ -301,9 +309,11 @@ public class CouponDaoDb implements CouponDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to get coupons by type", new DBDAOException(e));
 			throw new DBDAOException("Failed to get coupons by type", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 		return allCouponsByType;
 	}
@@ -332,9 +342,11 @@ public class CouponDaoDb implements CouponDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Can't get old coupon", new DBDAOException(e));
 			throw new DBDAOException("Can't get old coupon", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 		return oldCoupons;
 	}

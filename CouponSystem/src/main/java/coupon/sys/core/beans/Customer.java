@@ -3,6 +3,9 @@ package coupon.sys.core.beans;
 import java.io.Serializable;
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import coupon.sys.core.exceptions.CouponSystemExceptions;
 import coupon.sys.core.exceptions.CryptoHashException;
 import coupon.sys.core.utils.CryptoHashAlgorithms;
@@ -17,6 +20,9 @@ import coupon.sys.core.utils.CryptoHashAlgorithms;
 
 public class Customer implements Serializable {
 
+	/** The logger */
+	private static final Logger logger = LoggerFactory.getLogger(Customer.class);
+	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
@@ -71,6 +77,7 @@ public class Customer implements Serializable {
 		try {
 			password = CHA.hashPassword(password.getBytes(), "SHA-256");
 		} catch (CryptoHashException e) {
+			logger.error("Failed to hash the password", new CryptoHashException(e));
 			throw new CryptoHashException("Failed to hash the password");
 		}
 		this.password = password;

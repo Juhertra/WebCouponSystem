@@ -67,10 +67,10 @@ public class CouponSystem {
 		try {
 			connectionPool = ConnectionPool.getInstance();
 		} catch (CouponSystemExceptions e) {
-			// TODO Auto-generated catch block
 			logger.error("CouponSystem Error", e);
 		}
 		// start the daily cleaner thread
+		logger.debug("Starting Timer");
 		startTimer();
 	}
 
@@ -84,6 +84,7 @@ public class CouponSystem {
 			// create a CouponSystem only once
 			couponSystemInstance = new CouponSystem();
 		}
+		logger.debug("Coupon System instace returned");
 		return couponSystemInstance;
 	}
 
@@ -96,6 +97,7 @@ public class CouponSystem {
 		try {
 			connectionPool.closeAllConnections();
 		} catch (ConnectionPoolException e) {
+			logger.error("sql error returned from pool", new CouponSystemExceptions(e));
 			throw new CouponSystemExceptions("sql error returned from pool", e);
 		}
 		System.exit(0);
@@ -120,8 +122,8 @@ public class CouponSystem {
 	 * Stop timer. Stop the cleaner thread
 	 */
 	public void stopTimer() {
-		timer.cancel();
 		logger.info("Thread stopped by user request.");
+		timer.cancel();
 	}
 
 	/**
@@ -161,11 +163,10 @@ public class CouponSystem {
 					company.setPassword(password);
 					// create a CustomerFacade, referring to this company
 					CompanyFacade companyFacade = new CompanyFacade();
-//					companyFacade.setCompanyDao(companyDao);
-//					companyFacade.setCouponDao(couponDao);
 					return companyFacade;
 				}
 			} catch (CryptoHashException e) {
+				logger.error("Wrong Password!", new CouponSystemExceptions(e));
 				throw new CouponSystemExceptions("Wrong Password!", e);
 			}
 		}
@@ -192,6 +193,7 @@ public class CouponSystem {
 					return customerFacade;
 				}
 			} catch (CryptoHashException e) {
+				logger.error("Wrong Password!", new CouponSystemExceptions(e));
 				throw new CouponSystemExceptions("Wrong Password!", e);
 			}
 		}

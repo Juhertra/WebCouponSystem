@@ -13,6 +13,9 @@ import java.sql.Date;
 
 public class Coupon implements Serializable {
 
+	/** The logger */
+//	private static final Logger logger = LoggerFactory.getLogger(Coupon.class);
+	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 

@@ -3,6 +3,9 @@ package coupon.sys.core.main;
 import java.util.Collection;
 import java.util.TimerTask;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import coupon.sys.core.beans.Coupon;
 import coupon.sys.core.dao.CouponDao;
 import coupon.sys.core.dao.db.CouponDaoDb;
@@ -18,6 +21,9 @@ import coupon.sys.core.exceptions.CouponSystemExceptions;
  */
 public class DailyCouponExpirationTask extends TimerTask {
 
+	/** The Logger */
+	private static final Logger logger = LoggerFactory.getLogger(DailyCouponExpirationTask.class);
+	
 	/** The coupon dao. */
 	private CouponDao couponDao = new CouponDaoDb();
 
@@ -38,8 +44,7 @@ public class DailyCouponExpirationTask extends TimerTask {
 		try {
 			cleanOldCoupons();
 		} catch (CouponSystemExceptions e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Failed to run Coupon System", e);
 		}
 	}
 

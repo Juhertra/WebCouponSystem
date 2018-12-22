@@ -8,13 +8,32 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfiguration {
 
 	@Bean
-	public FilterRegistrationBean<CustomURLFilter> filtreFilterRegistrationBean(){
-		FilterRegistrationBean<CustomURLFilter> registrationBean = new FilterRegistrationBean<>();
-		CustomURLFilter customURLFilter = new CustomURLFilter();
+	public FilterRegistrationBean<AdminFilter> filtreFilterRegistrationBeanAdmin(){
+		FilterRegistrationBean<AdminFilter> registrationBean = new FilterRegistrationBean<AdminFilter>();
+		AdminFilter adminFilter = new AdminFilter();
 		
-		registrationBean.setFilter(customURLFilter);
-		registrationBean.addUrlPatterns("/Admin/*", "/Company/*", "/Customer/*");
-		registrationBean.setOrder(2);
+		registrationBean.setFilter(adminFilter);
+		registrationBean.addUrlPatterns("/Admin/*");
+		return registrationBean;
+	}
+	
+	@Bean
+	public FilterRegistrationBean<CompanyFilter> filtreFilterRegistrationBeanCompany(){
+		FilterRegistrationBean<CompanyFilter> registrationBean = new FilterRegistrationBean<CompanyFilter>();
+		CompanyFilter companyFilter = new CompanyFilter();
+		
+		registrationBean.setFilter(companyFilter);
+		registrationBean.addUrlPatterns("/Company/*");
+		return registrationBean;
+	}
+	
+	@Bean
+	public FilterRegistrationBean<CustomerFilter> filtreFilterRegistrationBeanCustomer(){
+		FilterRegistrationBean<CustomerFilter> registrationBean = new FilterRegistrationBean<CustomerFilter>();
+		CustomerFilter customerFilter= new CustomerFilter();
+		
+		registrationBean.setFilter(customerFilter);
+		registrationBean.addUrlPatterns("/Customer/*");
 		return registrationBean;
 	}
 }

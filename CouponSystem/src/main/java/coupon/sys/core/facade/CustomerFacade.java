@@ -225,6 +225,7 @@ public class CustomerFacade implements CouponClientFacade {
 		couponFromDB = couponDao.getCoupon(coupon.getId());
 
 		if (couponFromDB == null) {
+			logger.warn("Not available coupons");
 			throw new CouponSystemExceptions("Not available coupons");
 		}
 		if (couponFromDB.getAmount() <= 0) {
@@ -233,6 +234,7 @@ public class CustomerFacade implements CouponClientFacade {
 
 		// and not purchased already
 		if (getAllPurchasedCoupons().contains(couponFromDB)) {
+			logger.warn("coupon already owned by customer " + customer.getName());
 			throw new CouponSystemExceptions("coupon already owned by customer " + customer.getName());
 		}
 

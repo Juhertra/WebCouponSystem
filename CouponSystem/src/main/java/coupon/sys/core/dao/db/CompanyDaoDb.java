@@ -47,11 +47,9 @@ public class CompanyDaoDb implements CompanyDao {
 		try {
 			this.connectionPool = ConnectionPool.getInstance();
 		} catch (ConnectionPoolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Connection pool error" ,e);
 		} catch (CouponSystemExceptions e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Coupon System error" ,e);
 		}
 	}
 
@@ -100,10 +98,11 @@ public class CompanyDaoDb implements CompanyDao {
 				logger.info("Company created succesfully");
 			}
 		} catch (SQLException e) {
-			//logger.error("Failed to create new company", e);
+			logger.error("Failed to create new company", new DBDAOException(e));
 			throw new DBDAOException("Failed to create new company", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 	}
 
@@ -131,7 +130,7 @@ public class CompanyDaoDb implements CompanyDao {
 				companyID = resultSet.getLong("ID");
 				if (companyID == company.getId()) {
 					companyNameExists = true;
-					logger.info("Company: " + company.getName() + " found!");
+					logger.debug("Company: " + company.getName() + " found!");
 				}
 			}
 
@@ -154,9 +153,11 @@ public class CompanyDaoDb implements CompanyDao {
 		} catch (
 
 		SQLException e) {
+			logger.error("Failed to remove the requested company", new DBDAOException(e));
 			throw new DBDAOException("Failed to remove the requested company", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 
 	}
@@ -186,7 +187,7 @@ public class CompanyDaoDb implements CompanyDao {
 				companyID = resultSet.getLong("ID");
 				if (companyID == company.getId()) {
 					companyNameExists = true;
-					logger.info("Company: " + company.getName() + " found!");
+					logger.debug("Company: " + company.getName() + " found!");
 				}
 			}
 
@@ -206,9 +207,11 @@ public class CompanyDaoDb implements CompanyDao {
 		} catch (
 
 		SQLException e) {
+			logger.error("Failed to update the requested company", new DBDAOException(e));
 			throw new DBDAOException("Failed to update the requested company", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 
 	}
@@ -237,9 +240,11 @@ public class CompanyDaoDb implements CompanyDao {
 				company.setEmail(resultSet.getString("EMAIL"));
 			}
 		} catch (SQLException | CryptoHashException e) {
+			logger.error("Failed to get the requested company", new DBDAOException(e));
 			throw new DBDAOException("Failed to get the requested company", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 		return company;
 	}
@@ -270,11 +275,14 @@ public class CompanyDaoDb implements CompanyDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to get all companies", new DBDAOException(e));
 			throw new DBDAOException("Failed to get all companies", e);
 		} catch (CryptoHashException e) {
+			logger.error("Failed to get all companies passwords", new DBDAOException(e));
 			throw new DBDAOException("Failed to get all companies passwords", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 		return allCompanies;
 	}
@@ -312,9 +320,11 @@ public class CompanyDaoDb implements CompanyDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to get all coupons", new DBDAOException(e));
 			throw new DBDAOException("Failed to get all coupons", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 
 		return coupons;
@@ -356,11 +366,14 @@ public class CompanyDaoDb implements CompanyDao {
 			pstmt.close();
 			return loggedInCompanyID;
 		} catch (SQLException e) {
+			logger.error("Failed to login", new DBDAOException(e));
 			throw new DBDAOException("Failed to login", e);
 		} catch (CryptoHashException e) {
+			logger.error("Wrong password", new DBDAOException(e));
 			throw new DBDAOException("Wrong password", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 	}
 
@@ -387,9 +400,11 @@ public class CompanyDaoDb implements CompanyDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to get company ID", new DBDAOException(e));
 			throw new DBDAOException("Failed to get company ID", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 		return company.getId();
 

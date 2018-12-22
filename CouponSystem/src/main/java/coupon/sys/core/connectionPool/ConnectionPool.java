@@ -8,6 +8,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import coupon.sys.core.exceptions.ConnectionPoolException;
 import coupon.sys.core.exceptions.CouponSystemExceptions;
 import coupon.sys.core.utils.DataBaseProperties;
@@ -20,6 +23,9 @@ import coupon.sys.core.utils.DataBaseProperties;
  */
 public class ConnectionPool {
 
+	/** The logger */
+	private static final Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
+	
 	/** The connection pool. */
 	// Singleton
 	private static ConnectionPool connectionPool = null;
@@ -57,6 +63,7 @@ public class ConnectionPool {
 				connectionSet.add(DriverManager.getConnection(URL));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
+			logger.error("Failed to create connection ", new ConnectionPoolException(e));
 			throw new ConnectionPoolException("Failed to create connection: ", e);
 		}
 	}
@@ -90,7 +97,8 @@ public class ConnectionPool {
 				try {
 					wait();
 				} catch (InterruptedException e) {
-					throw new ConnectionPoolException("Error trying to get a connections from pool ", e);
+					logger.error("Error trying to get a connections from pool", new ConnectionPoolException(e));
+					throw new ConnectionPoolException("Error trying to get a connections from pool", e);
 				}
 			}
 			Iterator<Connection> connectionIterator = connectionSet.iterator();
@@ -127,7 +135,8 @@ public class ConnectionPool {
 			try {
 				wait(timeOut);
 			} catch (InterruptedException e) {
-				throw new ConnectionPoolException("connection pool shutdown error", e);
+				logger.error("Connection pool shutdown error", new ConnectionPoolException(e));
+				throw new ConnectionPoolException("Connection pool shutdown error", e);
 			}
 			Iterator<Connection> connectionIterator = connectionSet.iterator();
 			while (connectionIterator.hasNext()) {
@@ -135,6 +144,7 @@ public class ConnectionPool {
 				try {
 					connection.close();
 				} catch (SQLException e) {
+					logger.error("Error closing connection", new ConnectionPoolException(e));
 					throw new ConnectionPoolException("Error closing connection", e);
 				}
 				connectionIterator.remove();

@@ -48,11 +48,9 @@ public class CustomerDaoDb implements CustomerDao {
 		try {
 			this.connectionPool = ConnectionPool.getInstance();
 		} catch (ConnectionPoolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Failed to get connection pool", e);
 		} catch (CouponSystemExceptions e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Coupon System failure", e);
 		}
 	}
 
@@ -93,9 +91,11 @@ public class CustomerDaoDb implements CustomerDao {
 				pstmt.close();
 			}
 		} catch (SQLException e) {
-			throw new DBDAOException("Customer already exists.");
+			logger.error("Customer already exists.", new DBDAOException(e));
+			throw new DBDAOException("Customer already exists.", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 	}
 
@@ -127,9 +127,11 @@ public class CustomerDaoDb implements CustomerDao {
 			pstmt2.close();
 			logger.info("Customer removed successfully.");
 		} catch (SQLException e) {
+			logger.error("Failed to remove the requested customer", new DBDAOException(e));
 			throw new DBDAOException("Failed to remove the requested customer", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 
 	}
@@ -156,9 +158,11 @@ public class CustomerDaoDb implements CustomerDao {
 			logger.info("Customer updated successfully.");
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to update the requested customer", new DBDAOException(e));
 			throw new DBDAOException("Failed to update the requested customer", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 
 	}
@@ -190,11 +194,14 @@ public class CustomerDaoDb implements CustomerDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to get the requested customer", new DBDAOException(e));
 			throw new DBDAOException("Failed to get the requested customer", e);
 		} catch (CryptoHashException e) {
+			logger.error("Password not in database", new DBDAOException(e));
 			throw new DBDAOException("Password not in database", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 
 		return customer;
@@ -227,12 +234,14 @@ public class CustomerDaoDb implements CustomerDao {
 			logger.info("All customers presented successfully");
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to get all customers", new DBDAOException(e));
 			throw new DBDAOException("Failed to get all customers", e);
 		} catch (CryptoHashException e) {
+			logger.error("Password not in database", new DBDAOException(e));
 			throw new DBDAOException("Password not in database", e);
 		} finally {
-
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 		return allCustomers;
 	}
@@ -274,9 +283,11 @@ public class CustomerDaoDb implements CustomerDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to get the requested coupon", new DBDAOException(e));
 			throw new DBDAOException("Failed to get the requested coupon", e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 		return getCoupons;
 	}
@@ -315,11 +326,14 @@ public class CustomerDaoDb implements CustomerDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to login", new DBDAOException(e));
 			throw new DBDAOException("Failed to login", e);
 		} catch (CryptoHashException e) {
+			logger.error("Wrong password", new DBDAOException(e));
 			throw new DBDAOException("Wrong password!");
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 		return loggedInCustomerID;
 	}
@@ -350,9 +364,11 @@ public class CustomerDaoDb implements CustomerDao {
 			}
 			pstmt.close();
 		} catch (SQLException e) {
+			logger.error("Failed to get customer ID for"  + customer.getName(), new DBDAOException(e));
 			throw new DBDAOException("Failed to get customer ID for " + customer.getName(), e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 		return customer.getId();
 	}
@@ -381,11 +397,13 @@ public class CustomerDaoDb implements CustomerDao {
 			pstmt2.setLong(1, coupon.getId());
 			pstmt2.executeUpdate();
 			pstmt2.close();
-			throw new DBDAOException("coupon purchased by " + customer.getName() + ".");
+			logger.info("coupon purchased by " + customer.getName() + ".");
 		} catch (SQLException e) {
+			logger.error("Duplicated ID, cannot add customer: " + customer.getName(), new DBDAOException(e));
 			throw new DBDAOException("Duplicated ID, cannot add customer: " + customer.getName(), e);
 		} finally {
 			connectionPool.returnConnection(connection);
+			logger.debug("Connection returned");
 		}
 	}
 }
