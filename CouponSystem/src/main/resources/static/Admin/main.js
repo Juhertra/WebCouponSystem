@@ -433,7 +433,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-header\">\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n            </button>\n            <a class=\"navbar-brand\" href=\"#\">Coupon System</a>\n        </div>\n        <div class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav\">\n                <li>\n                    <a routerLink=\"/createcompany\">Create Company</a>\n                </li>\n                <li>\n                    <a routerLink=\"/createcustomer\">Create Customer</a>\n                </li>\n                <li>\n                    <a routerLink=\"/getallcompanies\">Companies</a>\n                </li>\n                <li>\n                    <a routerLink=\"/getallcustomers\">Customers</a>\n                </li>\n            </ul>\n            <ul class=\"nav navbar-nav navbar-right\">\n                <li>\n                    <a input type=\"search\" id=\"autosearch\" routerLink=\"/search\"><span>Search...</span></a>\n                </li>\n                <li>\n                    <a routerLink=\"./signup\" class=\"glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#modalRegisterForm\">\n                        Sign Up</a>\n                </li>\n                <li>\n                    <a href=\"#\">\n                        <span class=\"glyphicon glyphicon-log-in\"></span> Login</a>\n                </li>\n            </ul>\n        </div>\n    </div>\n</nav>\n\n<div class=\"container\">\n    <router-outlet></router-outlet>\n</div>"
+module.exports = "<nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-header\">\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n            </button>\n            <a class=\"navbar-brand\">Coupon System</a>\n        </div>\n        <div class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav\">\n                <li>\n                    <a routerLink=\"/createcompany\">Create Company</a>\n                </li>\n                <li>\n                    <a routerLink=\"/createcustomer\">Create Customer</a>\n                </li>\n                <li>\n                    <a routerLink=\"/getallcompanies\">Companies</a>\n                </li>\n                <li>\n                    <a routerLink=\"/getallcustomers\">Customers</a>\n                </li>\n            </ul>\n            <ul class=\"nav navbar-nav navbar-right\">\n                <li>\n                    <a input type=\"search\" id=\"autosearch\" routerLink=\"/search\"><span>Search...</span></a>\n                </li>\n                <li>\n                    <a (click)=logout()>Logout</a>\n                </li>\n                <li>\n                    <a>Admin</a>\n                </li>\n            </ul>\n        </div>\n    </div>\n</nav>\n\n<div class=\"container\">\n    <router-outlet></router-outlet>\n</div>"
 
 /***/ }),
 
@@ -448,23 +448,36 @@ module.exports = "<nav class=\"navbar navbar-inverse\">\n    <div class=\"contai
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/admin.service */ "./src/app/services/admin.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(_service) {
+        this._service = _service;
         this.title = 'WebCouponSystem';
     }
+    AppComponent.prototype.logout = function () {
+        var _this = this;
+        this._service.logoutService(this.request, this.response).subscribe(function (resp) {
+            window.location.href = _this._service.loginPath + "/login.html";
+        });
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_services_admin_service__WEBPACK_IMPORTED_MODULE_1__["AdminService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -496,16 +509,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminApp_Components_createcustomer_createcustomer_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./AdminApp/Components/createcustomer/createcustomer.component */ "./src/app/AdminApp/Components/createcustomer/createcustomer.component.ts");
 /* harmony import */ var _AdminApp_Components_createcompany_createcompany_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./AdminApp/Components/createcompany/createcompany.component */ "./src/app/AdminApp/Components/createcompany/createcompany.component.ts");
 /* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/signup/signup.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/admin.service */ "./src/app/services/admin.service.ts");
-/* harmony import */ var _search_search_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./search/search.component */ "./src/app/search/search.component.ts");
+/* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/admin.service */ "./src/app/services/admin.service.ts");
+/* harmony import */ var _search_search_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./search/search.component */ "./src/app/search/search.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -533,14 +544,14 @@ var AppModule = /** @class */ (function () {
                 _AdminApp_Components_createcustomer_createcustomer_component__WEBPACK_IMPORTED_MODULE_10__["CreatecustomerComponent"],
                 _AdminApp_Components_createcompany_createcompany_component__WEBPACK_IMPORTED_MODULE_11__["CreatecompanyComponent"],
                 _signup_signup_component__WEBPACK_IMPORTED_MODULE_12__["SignupComponent"],
-                _login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginComponent"],
-                _search_search_component__WEBPACK_IMPORTED_MODULE_15__["SearchComponent"]
+                _search_search_component__WEBPACK_IMPORTED_MODULE_14__["SearchComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _angular_http__WEBPACK_IMPORTED_MODULE_3__["HttpModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+                // Swal,
                 _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"].forRoot([
                     {
                         path: 'createcustomer',
@@ -559,89 +570,18 @@ var AppModule = /** @class */ (function () {
                         component: _AdminApp_Components_customers_customers_component__WEBPACK_IMPORTED_MODULE_9__["CustomerComponent"],
                     },
                     {
-                        path: 'login',
-                        component: _login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginComponent"],
-                    },
-                    {
-                        path: 'signup',
-                        component: _signup_signup_component__WEBPACK_IMPORTED_MODULE_12__["SignupComponent"],
-                    },
-                    {
                         path: 'search',
-                        component: _search_search_component__WEBPACK_IMPORTED_MODULE_15__["SearchComponent"],
+                        component: _search_search_component__WEBPACK_IMPORTED_MODULE_14__["SearchComponent"],
                     }
                 ])
             ],
-            providers: [_services_admin_service__WEBPACK_IMPORTED_MODULE_14__["AdminService"],
+            providers: [_services_admin_service__WEBPACK_IMPORTED_MODULE_13__["AdminService"],
                 { provide: _angular_common__WEBPACK_IMPORTED_MODULE_6__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_6__["HashLocationStrategy"] }],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
         })
     ], AppModule);
     return AppModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/login/login.component.css":
-/*!*******************************************!*\
-  !*** ./src/app/login/login.component.css ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
-/***/ "./src/app/login/login.component.html":
-/*!********************************************!*\
-  !*** ./src/app/login/login.component.html ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  login works!\n</p>\n"
-
-/***/ }),
-
-/***/ "./src/app/login/login.component.ts":
-/*!******************************************!*\
-  !*** ./src/app/login/login.component.ts ***!
-  \******************************************/
-/*! exports provided: LoginComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var LoginComponent = /** @class */ (function () {
-    function LoginComponent() {
-    }
-    LoginComponent.prototype.ngOnInit = function () {
-    };
-    LoginComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-login',
-            template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
-            styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/login/login.component.css")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], LoginComponent);
-    return LoginComponent;
 }());
 
 
@@ -655,7 +595,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#myInput {\n  background-image: url('/css/searchicon.png'); /* Add a search icon to input */\n  background-position: 10px 12px; /* Position the search icon */\n  background-repeat: no-repeat; /* Do not repeat the icon image */\n  width: 100%; /* Full-width */\n  font-size: 16px; /* Increase font-size */\n  padding: 12px 20px 12px 40px; /* Add some padding */\n  border: 1px solid #ddd; /* Add a grey border */\n  margin-bottom: 12px; /* Add some space below the input */\n}\n\n#myTable {\n  border-collapse: collapse; /* Collapse borders */\n  width: 100%; /* Full-width */\n  border: 1px solid #ddd; /* Add a grey border */\n  font-size: 18px; /* Increase font-size */\n}\n\n#myTable th, #myTable td {\n  text-align: left; /* Left-align text */\n  padding: 12px; /* Add padding */\n}\n\n#myTable tr {\n  /* Add a bottom border to all table rows */\n  border-bottom: 1px solid #ddd; \n}\n\n#myTable tr.header, #myTable tr:hover {\n  /* Add a grey background color to the table header and on hover */\n  background-color: #f1f1f1;\n}\n"
+module.exports = "#myInput {\n  /* background-image: url('/css/searchicon.png'); Add a search icon to input */\n  background-position: 10px 12px; /* Position the search icon */\n  background-repeat: no-repeat; /* Do not repeat the icon image */\n  width: 100%; /* Full-width */\n  font-size: 16px; /* Increase font-size */\n  padding: 12px 20px 12px 40px; /* Add some padding */\n  border: 1px solid #ddd; /* Add a grey border */\n  margin-bottom: 12px; /* Add some space below the input */\n}\n\n#myTable {\n  border-collapse: collapse; /* Collapse borders */\n  width: 100%; /* Full-width */\n  border: 1px solid #ddd; /* Add a grey border */\n  font-size: 18px; /* Increase font-size */\n}\n\n#myTable th, #myTable td {\n  text-align: left; /* Left-align text */\n  padding: 12px; /* Add padding */\n}\n\n#myTable tr {\n  /* Add a bottom border to all table rows */\n  border-bottom: 1px solid #ddd; \n}\n\n#myTable tr.header, #myTable tr:hover {\n  /* Add a grey background color to the table header and on hover */\n  background-color: #f1f1f1;\n}\n"
 
 /***/ }),
 
@@ -666,7 +606,7 @@ module.exports = "#myInput {\n  background-image: url('/css/searchicon.png'); /*
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<input type=\"text\" id=\"myInput\" onkeyup=\"myFunction()\" placeholder=\"Search for names..\">\n\n<table id=\"myTable\">\n  <tr class=\"header\">\n    <th style=\"width:60%;\">Name</th>\n    <th style=\"width:40%;\">Country</th>\n  </tr>\n  <tr>\n    <td>Alfreds Futterkiste</td>\n    <td>Germany</td>\n  </tr>\n  <tr>\n    <td>Berglunds snabbkop</td>\n    <td>Sweden</td>\n  </tr>\n  <tr>\n    <td>Island Trading</td>\n    <td>UK</td>\n  </tr>\n  <tr>\n    <td>Koniglich Essen</td>\n    <td>Germany</td>\n  </tr>\n</table>\n"
+module.exports = "<input type=\"text\" id=\"myInput\" onkeyup=\"myFunction()\" placeholder=\"Search for names..\" [(ngModel)]=\"binding\">\n\n<table id=\"myTable\">\n  <tr class=\"header\">\n    <th style=\"width:60%;\">Name</th>\n    <th style=\"width:40%;\">Country</th>\n  </tr>\n  <tr>\n    <td>Alfreds Futterkiste</td>\n    <td>Germany</td>\n  </tr>\n  <tr>\n    <td>Berglunds snabbkop</td>\n    <td>Sweden</td>\n  </tr>\n  <tr>\n    <td>Island Trading</td>\n    <td>UK</td>\n  </tr>\n  <tr>\n    <td>Koniglich Essen</td>\n    <td>Germany</td>\n  </tr>\n</table>\n"
 
 /***/ }),
 
@@ -765,10 +705,20 @@ var AdminService = /** @class */ (function () {
         this.protocol = "https";
         this.server = "localhost";
         this.port = "8443";
+        this.loginPath = this.protocol + "://" + this.server + ":" + this.port;
         this.adminApiPath = this.protocol + "://" + this.server + ":" + this.port + "/Admin/";
     }
+    AdminService.prototype.logoutService = function (request, response) {
+        return this._http.post(this.adminApiPath + "logout", request, response);
+    };
     AdminService.prototype.getAllCompaniesService = function () {
         return this._http.get(this.adminApiPath + "getAllCompanies");
+    };
+    AdminService.prototype.getCompanyByNameService = function (company) {
+        return this._http.get(this.adminApiPath + "getCompanyByName/" + company.name);
+    };
+    AdminService.prototype.getCompanyByIDService = function (company) {
+        return this._http.get(this.adminApiPath + "getCompanyByID/" + company.id);
     };
     AdminService.prototype.deleteCompanyService = function (company) {
         return this._http.delete(this.adminApiPath + "removeCompany/" + company.id, new _angular_http__WEBPACK_IMPORTED_MODULE_1__["RequestOptions"]({ body: company }));
@@ -778,6 +728,12 @@ var AdminService = /** @class */ (function () {
     };
     AdminService.prototype.getAllCustomersService = function () {
         return this._http.get(this.adminApiPath + "getAllCustomers");
+    };
+    AdminService.prototype.getCustomerByNameService = function (customer) {
+        return this._http.get(this.adminApiPath + "getCustomerByName/" + customer.name);
+    };
+    AdminService.prototype.getCustomerByIDService = function (customer) {
+        return this._http.get(this.adminApiPath + "getCustomer/" + customer.id);
     };
     AdminService.prototype.deleteCustomerService = function (customer) {
         return this._http.delete(this.adminApiPath + "removeCustomer/" + customer.id, new _angular_http__WEBPACK_IMPORTED_MODULE_1__["RequestOptions"]({ body: customer }));

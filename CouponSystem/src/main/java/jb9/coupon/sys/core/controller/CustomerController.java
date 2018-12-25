@@ -2,7 +2,10 @@ package jb9.coupon.sys.core.controller;
 
 import java.util.Collection;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +62,8 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/Customer/getAllAvailableCouponsByType/{couponType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllAvailableCouponsByType(@PathVariable("couponType") CouponType couponType, HttpServletRequest request) {
+	public Collection<Coupon> getAllAvailableCouponsByType(@PathVariable("couponType") CouponType couponType,
+			HttpServletRequest request) {
 		CustomerFacade customerFacade = getFacade(request);
 		Collection<Coupon> getAllAvailableCouponsByType = null;
 		try {
@@ -71,7 +75,8 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/Customer/getAllAvailableCouponsByPrice/{price}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllAvailableCouponsByPrice(@PathVariable("price") double price, HttpServletRequest request) {
+	public Collection<Coupon> getAllAvailableCouponsByPrice(@PathVariable("price") double price,
+			HttpServletRequest request) {
 		CustomerFacade customerFacade = getFacade(request);
 		Collection<Coupon> getAllAvailableCouponsByPrice = null;
 		try {
@@ -95,7 +100,8 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/Customer/getAllPurchasedCouponsByType/{couponType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllPurchasedCouponsByType(@PathVariable("couponType") CouponType couponType, HttpServletRequest request) {
+	public Collection<Coupon> getAllPurchasedCouponsByType(@PathVariable("couponType") CouponType couponType,
+			HttpServletRequest request) {
 		CustomerFacade customerFacade = getFacade(request);
 		Collection<Coupon> getAllPurchasedCouponsByType = null;
 		try {
@@ -107,7 +113,8 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/Customer/getAllPurchasedCouponsByPrice/{price}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllPurchasedCouponsByPrice(@PathVariable("price") double price, HttpServletRequest request) {
+	public Collection<Coupon> getAllPurchasedCouponsByPrice(@PathVariable("price") double price,
+			HttpServletRequest request) {
 		CustomerFacade customerFacade = getFacade(request);
 		Collection<Coupon> getAllPurchasedCouponsByPrice = null;
 		// double price = 0;
@@ -117,5 +124,24 @@ public class CustomerController {
 			logger.error("Couldn't get all coupons by price: " + price + ", for company: " + customer.getName());
 		}
 		return getAllPurchasedCouponsByPrice;
+	}
+
+	@RequestMapping(value = "/Customer/logout", method = RequestMethod.POST)
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
+		if (request.isRequestedSessionIdValid() && session != null) {
+			session.invalidate();
+		}
+		handleLogOutResponse(request, response);
+	}
+
+	private void handleLogOutResponse(HttpServletRequest request, HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			cookie.setMaxAge(0);
+			cookie.setValue(null);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+		}
 	}
 }

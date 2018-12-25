@@ -3,7 +3,10 @@ package jb9.coupon.sys.core.controller;
 import java.util.Collection;
 //import java.util.logging.Logger;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -201,4 +204,25 @@ public class AdminController {
 		}
 		return getAllCustomers;
 	}
+
+	@RequestMapping(value = "/Admin/logout", method = RequestMethod.POST)
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
+		if (request.isRequestedSessionIdValid() && session != null) {
+			session.invalidate();
+		}
+		handleLogOutResponse(request,response);
+	}
+	
+	private void handleLogOutResponse(HttpServletRequest request, HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			cookie.setMaxAge(0);
+			cookie.setValue(null);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+		}
+		
+	}
+
 }

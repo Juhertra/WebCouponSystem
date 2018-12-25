@@ -2,7 +2,10 @@ package jb9.coupon.sys.core.controller;
 
 import java.util.Collection;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,7 +99,8 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/Company/getAllCouponsByType/{couponType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<Coupon> getAllCouponsbyType(@PathVariable("couponType") CouponType couponType, HttpServletRequest request) {
+	public Collection<Coupon> getAllCouponsbyType(@PathVariable("couponType") CouponType couponType,
+			HttpServletRequest request) {
 		CompanyFacade companyFacade = getFacade(request);
 		Collection<Coupon> getAllCouponsByType = null;
 		try {
@@ -131,5 +135,24 @@ public class CompanyController {
 			logger.error("Couldn't get all coupons by price: " + price + ", for company: " + company.getName());
 		}
 		return getAllCouponsByPrice;
+	}
+
+	@RequestMapping(value = "/Company/logout", method = RequestMethod.POST)
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
+		if (request.isRequestedSessionIdValid() && session != null) {
+			session.invalidate();
+		}
+		handleLogOutResponse(request, response);
+	}
+
+	private void handleLogOutResponse(HttpServletRequest request, HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			cookie.setMaxAge(0);
+			cookie.setValue(null);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+		}
 	}
 }

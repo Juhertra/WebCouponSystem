@@ -42,7 +42,7 @@
 		logging in a tight loop a few million iterations vs not logging and see the 
 		difference. There are a few ways you can change logging levels on the fly 
 		in a running app. This could be a better solution than over logging. -->
-	<root level="WARN">
+	<root level="DEBUG">
 		<!-- If you want async logging just use ref="ASYNC" instead. We will favor 
 			synchronous logging for simplicity. -->
 		<appender-ref ref="FILE" />
