@@ -35,6 +35,10 @@ public class AdminController {
 	private Company company;
 	private Customer customer;
 
+	/**
+	 * @param request
+	 * @return
+	 */
 	private AdminFacade getFacade(HttpServletRequest request) {
 		AdminFacade adminFacade = (AdminFacade) request.getSession().getAttribute("facade");
 		return adminFacade;
@@ -46,6 +50,12 @@ public class AdminController {
 	 * @return
 	 */
 
+	
+	/**
+	 * @param company
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/createCompany", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createCompany(@RequestBody Company company, HttpServletRequest request) {
 		AdminFacade adminFacade = getFacade(request);
@@ -58,6 +68,13 @@ public class AdminController {
 		}
 	}
 
+	
+	/**
+	 * @param id
+	 * @param company
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/removeCompany/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> deleteCoupon(@PathVariable("id") int id, @RequestBody Company company,
 			HttpServletRequest request) {
@@ -72,6 +89,12 @@ public class AdminController {
 		}
 	}
 
+	/**
+	 * @param id
+	 * @param company
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/updateCompany/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> updateCoupon(@PathVariable("id") int id, @RequestBody Company company,
 			HttpServletRequest request) {
@@ -85,6 +108,11 @@ public class AdminController {
 		}
 	}
 
+	/**
+	 * @param id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/getCompanyByID/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Company getCompanyByID(@PathVariable("id") long id, HttpServletRequest request) {
 		AdminFacade adminFacade = getFacade(request);
@@ -99,6 +127,11 @@ public class AdminController {
 		return company;
 	}
 
+	/**
+	 * @param companyName
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/getCompanyByName/{companyName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Company getCompanyByName(@PathVariable("companyName") String companyName, HttpServletRequest request) {
 		AdminFacade adminFacade = getFacade(request);
@@ -113,6 +146,10 @@ public class AdminController {
 		return company;
 	}
 
+	/**
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/getAllCompanies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Company> getAllCompanies(HttpServletRequest request) {
 		AdminFacade adminFacade = getFacade(request);
@@ -131,6 +168,11 @@ public class AdminController {
 	 * Customer Methods
 	 */
 
+	/**
+	 * @param customer
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/createCustomer", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createCustomer(@RequestBody Customer customer, HttpServletRequest request) {
 		AdminFacade adminFacade = getFacade(request);
@@ -143,6 +185,12 @@ public class AdminController {
 		}
 	}
 
+	/**
+	 * @param id
+	 * @param customer
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/removeCustomer/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> deleteCoupon(@PathVariable("id") int id, @RequestBody Customer customer,
 			HttpServletRequest request) {
@@ -156,6 +204,12 @@ public class AdminController {
 		}
 	}
 
+	/**
+	 * @param id
+	 * @param customer
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/updateCustomer/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> updateCustomer(@PathVariable("id") int id, @RequestBody Customer customer,
 			HttpServletRequest request) {
@@ -169,6 +223,11 @@ public class AdminController {
 		}
 	}
 
+	/**
+	 * @param id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/getCustomer/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Customer getCustomer(@PathVariable("id") long id, HttpServletRequest request) {
 		AdminFacade adminFacade = getFacade(request);
@@ -181,6 +240,11 @@ public class AdminController {
 		return customer;
 	}
 
+	/**
+	 * @param customerName
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/getCustomerByName/{customerName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Customer getCustomerByName(@PathVariable("customerName") String customerName, HttpServletRequest request) {
 		AdminFacade adminFacade = getFacade(request);
@@ -193,6 +257,10 @@ public class AdminController {
 		return customer;
 	}
 
+	/**
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Admin/getAllCustomers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Customer> getAllCustomers(HttpServletRequest request) {
 		AdminFacade adminFacade = getFacade(request);
@@ -205,6 +273,10 @@ public class AdminController {
 		return getAllCustomers;
 	}
 
+	/**
+	 * @param request
+	 * @param response
+	 */
 	@RequestMapping(value = "/Admin/logout", method = RequestMethod.POST)
 	public void logout(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
@@ -214,6 +286,10 @@ public class AdminController {
 		handleLogOutResponse(request,response);
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 */
 	private void handleLogOutResponse(HttpServletRequest request, HttpServletResponse response) {
 		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {

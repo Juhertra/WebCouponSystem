@@ -24,6 +24,14 @@ public class LoginServlet extends CouponSystem {
 		super();
 	}
 
+	/**
+	 * @param name
+	 * @param password
+	 * @param clientType
+	 * @param request
+	 * @return
+	 * @throws CouponSystemExceptions
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String doPostRedirect(@RequestParam String name, @RequestParam String password,
 			@RequestParam ClientType clientType, HttpServletRequest request) throws CouponSystemExceptions {

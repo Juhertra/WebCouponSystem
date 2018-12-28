@@ -35,6 +35,10 @@ public class CompanyController {
 	private Coupon coupon;
 	long loggedInCompanyID = 0;
 
+	/**
+	 * @param request
+	 * @return
+	 */
 	private CompanyFacade getFacade(HttpServletRequest request) {
 
 		CompanyFacade companyFacade = (CompanyFacade) request.getSession().getAttribute("facade");
@@ -42,6 +46,11 @@ public class CompanyController {
 
 	}
 
+	/**
+	 * @param coupon
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Company/createCoupon", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createCoupon(@RequestBody Coupon coupon, HttpServletRequest request) {
 		CompanyFacade companyFacade = getFacade(request);
@@ -54,6 +63,11 @@ public class CompanyController {
 		}
 	}
 
+	/**
+	 * @param id
+	 * @param coupon
+	 * @param request
+	 */
 	@RequestMapping(value = "/Company/removeCoupon/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void deleteCoupon(@PathVariable("id") int id, @RequestBody Coupon coupon, HttpServletRequest request) {
 		CompanyFacade companyFacade = getFacade(request);
@@ -64,6 +78,11 @@ public class CompanyController {
 		}
 	}
 
+	/**
+	 * @param id
+	 * @param coupon
+	 * @param request
+	 */
 	@RequestMapping(value = "/Company/updateCoupon/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateCoupon(@PathVariable("id") int id, @RequestBody Coupon coupon, HttpServletRequest request) {
 		CompanyFacade companyFacade = getFacade(request);
@@ -74,6 +93,11 @@ public class CompanyController {
 		}
 	}
 
+	/**
+	 * @param id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Company/getCoupon/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Coupon getCoupon(@PathVariable("id") long id, HttpServletRequest request) {
 		CompanyFacade companyFacade = getFacade(request);
@@ -86,6 +110,10 @@ public class CompanyController {
 		return coupon;
 	}
 
+	/**
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Company/getAllCoupons", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Coupon> getAllCoupons(HttpServletRequest request) {
 		CompanyFacade companyFacade = getFacade(request);
@@ -98,6 +126,11 @@ public class CompanyController {
 		return allCoupons;
 	}
 
+	/**
+	 * @param couponType
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Company/getAllCouponsByType/{couponType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Coupon> getAllCouponsbyType(@PathVariable("couponType") CouponType couponType,
 			HttpServletRequest request) {
@@ -111,6 +144,11 @@ public class CompanyController {
 		return getAllCouponsByType;
 	}
 
+	/**
+	 * @param date
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Company/getAllCouponsByMaxDate/{date}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Coupon> getAllCouponsByDate(@PathVariable("date") String date, HttpServletRequest request) {
 		CompanyFacade companyFacade = getFacade(request);
@@ -124,6 +162,11 @@ public class CompanyController {
 		return getAllCouponsByDate;
 	}
 
+	/**
+	 * @param price
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/Company/getAllCouponsByMaxPrice/{price}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Coupon> getAllCouponsByPrice(@PathVariable("price") double price, HttpServletRequest request) {
 		CompanyFacade companyFacade = getFacade(request);
@@ -137,6 +180,10 @@ public class CompanyController {
 		return getAllCouponsByPrice;
 	}
 
+	/**
+	 * @param request
+	 * @param response
+	 */
 	@RequestMapping(value = "/Company/logout", method = RequestMethod.POST)
 	public void logout(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
@@ -146,6 +193,10 @@ public class CompanyController {
 		handleLogOutResponse(request, response);
 	}
 
+	/**
+	 * @param request
+	 * @param response
+	 */
 	private void handleLogOutResponse(HttpServletRequest request, HttpServletResponse response) {
 		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {
