@@ -29,6 +29,7 @@ public class LoginServlet extends CouponSystem {
 	 * @param password
 	 * @param clientType
 	 * @param request
+	 * 
 	 * @return
 	 * @throws CouponSystemExceptions
 	 */
