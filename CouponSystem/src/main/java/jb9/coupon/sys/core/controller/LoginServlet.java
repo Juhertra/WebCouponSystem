@@ -43,11 +43,11 @@ public class LoginServlet extends CouponSystem {
 		// now redirect to the correct page!
 		switch (clientType) {
 		case ADMIN:
-			return "redirect:https://localhost:8443/admin/index.html";
+			return "redirect:https://localhost:8443/Admin/index.html";
 		case COMPANY:
-			return "redirect:https://localhost:8443/company/index.html";
+			return "redirect:https://localhost:8443/Company/index.html";
 		case CUSTOMER:
-			return "redirect:https://localhost:8443/customer/index.html";
+			return "redirect:https://localhost:8443/Customer/index.html";
 		}
 
 		return "redirect:https://localhost:8443/login.html";

@@ -57,6 +57,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CompanyComponent", function() { return CompanyComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../services/admin.service */ "./src/app/services/admin.service.ts");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -66,6 +68,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 var CompanyComponent = /** @class */ (function () {
@@ -82,17 +85,57 @@ var CompanyComponent = /** @class */ (function () {
         });
     };
     CompanyComponent.prototype.deleteCompany = function (company) {
-        // fire ajax Delete
-        this._service.deleteCompanyService(company).subscribe(function (resp) {
-            console.log(company);
-            console.log(resp);
+        var _this = this;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+            title: 'Are you sure?',
+            text: "Are you sure you want to delete company: " + company.name + "?!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function (result) {
+            if (result.value) {
+                // fire ajax Delete
+                _this._service.deleteCompanyService(company).subscribe(function (resp) {
+                    console.log(company);
+                    console.log(resp);
+                }, function (err) {
+                    console.error('Error while deleting company:' + company.name, err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
         });
     };
     CompanyComponent.prototype.updateCompany = function (company) {
-        // fire ajax Put
-        this._service.updateCompanyService(company).subscribe(function (resp) {
-            console.log(company);
-            console.log(resp);
+        var _this = this;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+            title: 'Are you sure?',
+            text: "Are you sure you want to update company: " + company.name + "?!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, update it!'
+        }).then(function (result) {
+            if (result.value) {
+                // fire ajax Put
+                _this._service.updateCompanyService(company).subscribe(function (resp) {
+                    console.log(company);
+                    console.log(resp);
+                }, function (err) {
+                    console.error('Error while updating company:' + company.name, err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
         });
     };
     CompanyComponent = __decorate([
@@ -146,6 +189,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var _Common_Company__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Common/Company */ "./src/app/Common/Company.ts");
 /* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/admin.service */ "./src/app/services/admin.service.ts");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -155,6 +200,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -170,9 +216,29 @@ var CreatecompanyComponent = /** @class */ (function () {
     CreatecompanyComponent.prototype.ngOnInit = function () {
     };
     CreatecompanyComponent.prototype.createCompany = function () {
-        // fire ajax POST
-        this._http.post(this.httpspath + "createCompany", this.company).subscribe(function (resp) {
-            console.log(resp);
+        var _this = this;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default()({
+            title: 'Are you sure?',
+            text: "You are about to create company: " + this.company.name,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, create it!'
+        }).then(function (result) {
+            if (result.value) {
+                // fire ajax POST
+                _this._http.post(_this.httpspath + "createCompany", _this.company).subscribe(function (resp) {
+                    console.log(resp);
+                }, function (err) {
+                    console.error('Error while creating company:' + _this.company.name, err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_4___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
         });
     };
     CreatecompanyComponent = __decorate([
@@ -226,6 +292,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var _Common_Customer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Common/Customer */ "./src/app/Common/Customer.ts");
 /* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/admin.service */ "./src/app/services/admin.service.ts");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -235,6 +303,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -250,9 +319,29 @@ var CreatecustomerComponent = /** @class */ (function () {
     CreatecustomerComponent.prototype.ngOnInit = function () {
     };
     CreatecustomerComponent.prototype.createCustomer = function () {
-        // fire ajax POST
-        this._http.post(this.httpspath + "createCustomer", this.customer).subscribe(function (resp) {
-            console.log(resp);
+        var _this = this;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default()({
+            title: 'Are you sure?',
+            text: "You are about to create customer " + this.customer.name,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, create it!'
+        }).then(function (result) {
+            if (result.value) {
+                // fire ajax POST
+                _this._http.post(_this.httpspath + "createCustomer", _this.customer).subscribe(function (resp) {
+                    console.log(resp);
+                }, function (err) {
+                    console.error('Error while creating customer:' + _this.customer.name, err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_4___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
         });
     };
     CreatecustomerComponent = __decorate([
@@ -304,6 +393,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomerComponent", function() { return CustomerComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../services/admin.service */ "./src/app/services/admin.service.ts");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -313,6 +404,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 var CustomerComponent = /** @class */ (function () {
@@ -333,24 +425,56 @@ var CustomerComponent = /** @class */ (function () {
     };
     CustomerComponent.prototype.deleteCustomer = function (customer) {
         var _this = this;
-        // fire ajax delete
-        this._service.deleteCustomerService(customer).subscribe(function (resp) {
-            console.log(customer);
-            console.log(resp);
-        }, function (error) {
-            error.callback = function () { return _this.customer; };
-            throw error;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+            title: 'Are you sure?',
+            text: "You are about to delete customer: " + customer.name + "!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function (result) {
+            if (result.value) {
+                // fire ajax delete
+                _this._service.deleteCustomerService(customer).subscribe(function (resp) {
+                    console.log(customer);
+                    console.log(resp);
+                }, function (err) {
+                    console.error('Error while deleting customer:' + customer.name, err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
         });
     };
     CustomerComponent.prototype.updateCustomer = function (customer) {
         var _this = this;
-        // fire ajax Put
-        this._service.updateCustomerService(customer).subscribe(function (resp) {
-            console.log(customer);
-            console.log(resp);
-        }, function (error) {
-            error.callback = function () { return _this.customer; };
-            throw error;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+            title: 'Are you sure?',
+            text: "You are about to update customer: " + customer.name + "!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, update it!'
+        }).then(function (result) {
+            if (result.value) {
+                // fire ajax Put
+                _this._service.updateCustomerService(customer).subscribe(function (resp) {
+                    console.log(customer);
+                    console.log(resp);
+                }, function (err) {
+                    console.error('Error while updating customer:' + customer.name, err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
         });
     };
     CustomerComponent = __decorate([
@@ -449,6 +573,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/admin.service */ "./src/app/services/admin.service.ts");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -460,15 +586,35 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var AppComponent = /** @class */ (function () {
     function AppComponent(_service) {
         this._service = _service;
         this.title = 'WebCouponSystem';
     }
-    AppComponent.prototype.logout = function () {
+    AppComponent.prototype.logout = function (response, request) {
         var _this = this;
-        this._service.logoutService(this.request, this.response).subscribe(function (resp) {
-            window.location.href = _this._service.loginPath + "/login.html";
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+            title: 'Are you sure?',
+            text: "You are about to logout!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, logout!'
+        }).then(function (result) {
+            if (result.value) {
+                _this._service.logoutService(_this.request, _this.response).subscribe(function (resp) {
+                    window.location.href = _this._service.loginPath + "/login.html";
+                }, function (err) {
+                    console.error('Error while loging out Admin', err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
         });
     };
     AppComponent = __decorate([
@@ -551,7 +697,6 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _angular_http__WEBPACK_IMPORTED_MODULE_3__["HttpModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                // Swal,
                 _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"].forRoot([
                     {
                         path: 'createcustomer',

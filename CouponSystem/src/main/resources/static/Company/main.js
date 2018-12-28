@@ -70,7 +70,7 @@ module.exports = "\n.container {\n  border-radius: 5px;\n  background-color: whi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"coupontitle\">Title</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"text\" id=\"ctitle\" name=\"couponTitle\" placeholder=\"Coupon Title\" [(ngModel)]=\"coupon.title\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"couponstartdate\">Start Date</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"date\" id=\"cstartdate\" name=\"couponStartDate\" placeholder=\"Start Date\" [(ngModel)]=\"coupon.startDate\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"couponendtdate\">End Date</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"date\" id=\"cenddate\" name=\"couponEndDate\" placeholder=\"End Date\" [(ngModel)]=\"coupon.endDate\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"couponamount\">Amount</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"number\" id=\"camount\" name=\"couponamount\" placeholder=\"Amount\" [(ngModel)]=\"coupon.amount\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"coupomtype\">Type</label>\n      </div>\n      <div class=\"col-75\">\n        <!-- <input type=\"coupontype\" id=\"ctype\" name=\"couptype\" placeholder=\"Coupon Type\" [(ngModel)]=\"coupon.type\"> -->\n        <select type=\"couponType\" d=\"ctype\" name=\"couptype\" placeholder=\"Coupon Type\" [(ngModel)]=\"coupon.type\" class=\"col-75\">\n          <option value=\"coupon.type\" disabled=\"disabled\" selected=\"selected\">Select Type</option>\n          <option value=\"RESTAURANTS\">Restaurants</option>\n          <option value=\"ELECTRICITY\">Electricity</option>\n          <option value=\"FOOD\">Food</option>\n          <option value=\"HEALTH\">Health</option>\n          <option value=\"SPORTS\">Sports</option>\n          <option value=\"CAMPING\">Camping</option>\n          <option value=\"TRAVELLING\">Travelling</option>\n        </select>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"coupommesssage\">Message</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"text\" id=\"cmessage\" name=\"couponmessage\" placeholder=\"Message\" [(ngModel)]=\"coupon.message\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"coupomprice\">Price</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"number\" id=\"cmprice\" name=\"couponprice\" placeholder=\"Price\" [(ngModel)]=\"coupon.price\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"coupomimage\">Image</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"image\" id=\"cimage\" name=\"couponimage\" placeholder=\"Image\" [(ngModel)]=\"coupon.image\">\n      </div>\n    </div>\n    <br>\n    <div>\n      {{coupon | json}}\n    </div>\n    <div class=\"row\">\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"createCoupon(coupon)\" >Create Coupon</button>\n    </div>\n  </form>\n</div>"
+module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"coupontitle\">Title</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"text\" id=\"ctitle\" name=\"couponTitle\" placeholder=\"Coupon Title\" [(ngModel)]=\"coupon.title\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"couponstartdate\">Start Date</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"date\" id=\"cstartdate\" name=\"couponStartDate\" placeholder=\"Start Date\" [(ngModel)]=\"coupon.startDate\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"couponendtdate\">End Date</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"date\" id=\"cenddate\" name=\"couponEndDate\" placeholder=\"End Date\" [(ngModel)]=\"coupon.endDate\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"couponamount\">Amount</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"number\" id=\"camount\" name=\"couponamount\" placeholder=\"Amount\" [(ngModel)]=\"coupon.amount\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"coupomtype\">Type</label>\n      </div>\n      <div class=\"col-75\">\n        <select type=\"couponType\" d=\"ctype\" name=\"couptype\" placeholder=\"Coupon Type\" [(ngModel)]=\"coupon.type\" class=\"col-75\">\n          <option value=\"coupon.type\" disabled=\"disabled\" selected=\"selected\">Select Type</option>\n          <option value=\"RESTAURANTS\">Restaurants</option>\n          <option value=\"ELECTRICITY\">Electricity</option>\n          <option value=\"FOOD\">Food</option>\n          <option value=\"HEALTH\">Health</option>\n          <option value=\"SPORTS\">Sports</option>\n          <option value=\"CAMPING\">Camping</option>\n          <option value=\"TRAVELLING\">Travelling</option>\n        </select>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"coupommesssage\">Message</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"text\" id=\"cmessage\" name=\"couponmessage\" placeholder=\"Message\" [(ngModel)]=\"coupon.message\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"coupomprice\">Price</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"number\" id=\"cmprice\" name=\"couponprice\" placeholder=\"Price\" [(ngModel)]=\"coupon.price\">\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-25\">\n        <label for=\"coupomimage\">Image</label>\n      </div>\n      <div class=\"col-75\">\n        <input type=\"image\" id=\"cimage\" name=\"couponimage\" placeholder=\"Image\" [(ngModel)]=\"coupon.image\">\n      </div>\n    </div>\n    <br>\n    <div>\n      {{coupon | json}}\n    </div>\n    <div class=\"row\">\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"createCoupon(coupon)\" >Create Coupon</button>\n    </div>\n  </form>\n</div>"
 
 /***/ }),
 
@@ -87,6 +87,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var _common_coupon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../common/coupon */ "./src/app/CompanyApp/common/coupon.ts");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -96,6 +98,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -111,11 +114,29 @@ var CreatecouponComponent = /** @class */ (function () {
     CreatecouponComponent.prototype.ngOnInit = function () {
     };
     CreatecouponComponent.prototype.createCoupon = function (coupon) {
-        console.log('==========================');
-        console.log(this.coupon);
-        // fire ajax POST
-        this._http.post(this.companyApiPath + "createCoupon", this.coupon).subscribe(function (resp) {
-            console.log(resp);
+        var _this = this;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
+            title: 'Are you sure?',
+            text: "Are you sure you want to create coupon: " + coupon.title + "?!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, create it!'
+        }).then(function (result) {
+            if (result.value) {
+                // fire ajax Delete
+                _this._http.post(_this.companyApiPath + "createCoupon", _this.coupon).subscribe(function (resp) {
+                    console.log(resp);
+                }, function (err) {
+                    console.error('Error while creating company:' + coupon.title, err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
         });
     };
     CreatecouponComponent = __decorate([
@@ -167,6 +188,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetallcouponsComponent", function() { return GetallcouponsComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -176,6 +199,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 var GetallcouponsComponent = /** @class */ (function () {
@@ -196,34 +220,57 @@ var GetallcouponsComponent = /** @class */ (function () {
         });
     };
     GetallcouponsComponent.prototype.deleteCoupon = function (coupon) {
-        return this._http.delete(this.companyApiPath + "removeCoupon/" + coupon.id, new _angular_http__WEBPACK_IMPORTED_MODULE_1__["RequestOptions"]({ body: coupon })).subscribe(function (resp) {
-            console.log(coupon);
-            console.log(resp);
+        var _this = this;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+            title: 'Are you sure?',
+            text: "Are you sure you want to delete coupon: " + coupon.title + "?!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function (result) {
+            if (result.value) {
+                // fire ajax Delete
+                _this._http.delete(_this.companyApiPath + "removeCoupon/" + coupon.id, new _angular_http__WEBPACK_IMPORTED_MODULE_1__["RequestOptions"]({ body: coupon })).subscribe(function (resp) {
+                    console.log(coupon);
+                    console.log(resp);
+                }, function (err) {
+                    console.error('Error while deleting company:' + coupon.title, err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
         });
     };
     GetallcouponsComponent.prototype.updateCoupon = function (coupon) {
-        return this._http.put(this.companyApiPath + "updateCoupon/" + coupon.id, coupon).subscribe(function (resp) {
-            console.log(coupon);
-            console.log(resp);
-        });
-    };
-    GetallcouponsComponent.prototype.myFunction = function () {
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("search-bar");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("companyTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                }
-                else {
-                    tr[i].style.display = "none";
-                }
+        var _this = this;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+            title: 'Are you sure?',
+            text: "Are you sure you want to update coupon: " + coupon.title + "?!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, update it!'
+        }).then(function (result) {
+            if (result.value) {
+                _this._http.put(_this.companyApiPath + "updateCoupon/" + coupon.id, coupon).subscribe(function (resp) {
+                    console.log(coupon);
+                    console.log(resp);
+                }, function (err) {
+                    console.error('Error while updating company:' + coupon.title, err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
             }
-        }
+        });
     };
     GetallcouponsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -258,7 +305,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-inverse\">\n  <div class=\"container-fluid\">\n      <div class=\"navbar-header\">\n          <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n          </button>\n          <a class=\"navbar-brand\" href=\"#\">Coupon System</a>\n      </div>\n      <div class=\"collapse navbar-collapse\">\n          <ul class=\"nav navbar-nav\">\n              <li>\n                  <a routerLink=\"/createcoupon\">Create Coupon</a>\n              </li>\n              <li>\n                  <a routerLink=\"/getallcoupons\">Coupons</a>\n              </li>\n          </ul>\n          <ul class=\"nav navbar-nav navbar-right\">\n              <li>\n                  <a input type=\"search\" id=\"autosearch\" routerLink=\"/search\"><span>Search...</span></a>\n              </li>\n              <li>\n                  <a routerLink=\"./signup\" class=\"glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#modalRegisterForm\">\n                      Sign Up</a>\n              </li>\n              <li>\n                  <a href=\"#\">\n                      <span class=\"glyphicon glyphicon-log-in\"></span> Login</a>\n              </li>\n          </ul>\n      </div>\n  </div>\n</nav>\n\n<div class=\"container\">\n  <router-outlet></router-outlet>\n</div>"
+module.exports = "<nav class=\"navbar navbar-inverse\">\n    <div class=\"container-fluid\">\n        <div class=\"navbar-header\">\n            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n                <span class=\"icon-bar\"></span>\n            </button>\n            <a class=\"navbar-brand\" href=\"#\">Coupon System</a>\n        </div>\n        <div class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav\">\n                <li>\n                    <a routerLink=\"/createcoupon\">Create Coupon</a>\n                </li>\n                <li>\n                    <a routerLink=\"/getallcoupons\">Coupons</a>\n                </li>\n            </ul>\n            <ul class=\"nav navbar-nav navbar-right\">\n                <li>\n                    <a input type=\"search\" id=\"autosearch\" routerLink=\"/search\"><span>Search...</span></a>\n                </li>\n                <li>\n                    <a><span (click)=logout() class=\"glyphicon glyphicon-log-in\">Logout</span></a>\n                </li>\n                <li>\n                    <a>Company</a>\n                </li>\n            </ul>\n        </div>\n    </div>\n</nav>\n\n<div class=\"container\">\n    <router-outlet></router-outlet>\n</div>"
 
 /***/ }),
 
@@ -273,23 +320,58 @@ module.exports = "<nav class=\"navbar navbar-inverse\">\n  <div class=\"containe
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(_http) {
+        this._http = _http;
         this.title = 'WebCouponSystemCompany';
     }
+    AppComponent.prototype.logout = function (response, request) {
+        var _this = this;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+            title: 'Are you sure?',
+            text: "You are about to logout!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, logout!'
+        }).then(function (result) {
+            if (result.value) {
+                _this._http.post("https://localhost:8443/Customer/logout", request, response).subscribe(function (resp) {
+                    window.location.href = "https://localhost:8443/login.html";
+                }, function (err) {
+                    console.error('Error while logging out from Company', err);
+                    sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()({
+                        title: 'Error!',
+                        text: 'Oops... ' + 'Something went wrong!',
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
+        });
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"]])
     ], AppComponent);
     return AppComponent;
 }());

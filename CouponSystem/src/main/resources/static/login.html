@@ -2,254 +2,287 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-	<!-- <form action="http://localhost:8080/login" method="POST"> -->
-
-	<form action="https://localhost:8443/login" method="POST">
-		<p> NAME : <input name="name" type="text"></p>
-		<p> PASSWORD : <input name="password" type="password"></p>
-		<br>
-		<span>Client Type:</span>
-		</br>
-  <input type="radio" name="clientType" value=ADMIN checked> Administrator<br>
-  <input type="radio" name="clientType" value=COMPANY> Company<br>
-  <input type="radio" name="clientType" value=CUSTOMER> Customer<br><br>
-		<button type="submit">SUBMIT</button>
-	</form>
-
-</body>
-</html>
-<!-- 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>WebCouponSystem</title>
-<base href="/">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-
-BootStrap URL's
+<title>Web Coupon System</title>
 
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+
+
 
 <style>
-body {
-	font-family: Arial, Helvetica, sans-serif;
-}
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
-/* Full-width input fields */
-input[type=text], input[type=password] {
-	width: 100%;
-	padding: 12px 20px;
-	margin: 8px 0;
-	display: inline-block;
-	border: 1px solid #ccc;
-	box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css?family=Poiret+One');
 
-/* Set a style for all buttons */
-button {
-	background-color: #4CAF50;
-	color: white;
-	padding: 14px 20px;
-	margin: 8px 0;
-	border: none;
-	cursor: pointer;
-	width: 100%;
-}
-
-button:hover {
-	opacity: 0.8;
-}
-
-/* Extra styles for the cancel button */
-.cancelbtn {
-	width: auto;
-	padding: 10px 18px;
-	background-color: #f44336;
-}
-
-/* Center the image and position the close button */
-.imgcontainer {
-	text-align: center;
-	margin: 24px 0 12px 0;
+body, html {
+	height: 100%;
+	background-repeat: no-repeat;
+	/*background-image: linear-gradient(rgb(12, 97, 33),rgb(104, 145, 162));*/
+	background: black;
 	position: relative;
 }
 
-img.avatar {
-	width: 40%;
-	border-radius: 50%;
-}
-
-.container {
-	padding: 16px;
-}
-
-span.psw {
-	float: right;
-	padding-top: 16px;
-}
-
-/* The Modal (background) */
-.modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-	padding-top: 60px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-	background-color: #fefefe;
-	margin: 5% auto 15% auto;
-	/* 5% from the top, 15% from the bottom and centered */
-	border: 1px solid #888;
-	width: 60%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button (x) */
-.close {
+#login-box {
 	position: absolute;
-	right: 25px;
-	top: 0;
-	color: #000;
-	font-size: 35px;
-	font-weight: bold;
+	top: 0px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 350px;
+	margin: 0 auto;
+	border: 1px solid black;
+	background: rgba(48, 46, 45, 1);
+	min-height: 250px;
+	padding: 20px;
+	z-index: 9999;
 }
 
-.close:hover, .close:focus {
-	color: red;
-	cursor: pointer;
+#login-box .logo .logo-caption {
+	font-family: 'Poiret One', cursive;
+	color: white;
+	text-align: center;
+	margin-bottom: 0px;
 }
 
-/* Add Zoom Animation */
-.animate {
-	-webkit-animation: animatezoom 0.6s;
-	animation: animatezoom 0.6s
+#login-box .logo .tweak {
+	color: #ff5252;
 }
 
-@
--webkit-keyframes animatezoom {
-	from {-webkit-transform: scale(0)
+#login-box .controls {
+	padding-top: 30px;
 }
 
-to {
-	-webkit-transform: scale(1)
+#login-box .controls input {
+	border-radius: 0px;
+	background: rgb(98, 96, 96);
+	border: 0px;
+	color: white;
+	font-family: 'Nunito', sans-serif;
 }
 
-}
-@
-keyframes animatezoom {
-	from {transform: scale(0)
+#login-box .controls input:focus {
+	box-shadow: none;
 }
 
-to {
-	transform: scale(1)
+#login-box .controls input:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
 }
 
+#login-box .controls input:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
 }
 
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-	span.psw {
-		display: block;
-		float: none;
-	}
-	.cancelbtn {
-		width: 100%;
-	}
+#login-box button.btn-custom {
+	border-radius: 2px;
+	margin-top: 8px;
+	background: #ff5252;
+	border-color: rgba(48, 46, 45, 1);
+	color: white;
+	font-family: 'Nunito', sans-serif;
+}
+
+#login-box button.btn-custom:hover {
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+	background: rgba(48, 46, 45, 1);
+	border-color: #ff5252;
+}
+
+#particles-js {
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: 50% 50%;
+	position: fixed;
+	top: 0px;
+	z-index: 1;
 }
 </style>
+
 </head>
 <body>
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand">Coupon System</a>
-			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a class="btn btn-info btn-lg"
-						onclick="document.getElementById('id01').style.display='block'">
-							<span class="glyphicon glyphicon-log-in"></span> Log in
-					</a>
 
-						<p>
-							Unicode: <span class="glyphicon">&#xe161;</span>
-						</p> <button type="button"
-							onclick="document.getElementById('id01').style.display='block'">
-							<span class="
-						glyphiconglyphicon-log-in"></span> Login
-						</button>
-						<div id="id01" class="modal">
-
-							<form class="modal-content animate" action="/action_page.php">
-								<div class="imgcontainer">
-									<span
-										onclick="document.getElementById('id01').style.display='none'"
-										class="close" title="Close Modal">&times;</span> <img
-										src="img_avatar2.png" alt="Avatar" class="avatar">
-								</div>
-
-								<div class="container">
-									<label for="uname"><b>Username</b></label> <input type="text"
-										placeholder="Enter Username" name="uname" required> <label
-										for="psw"><b>Password</b></label> <input type="password"
-										placeholder="Enter Password" name="psw" required>
-
-									<button type="submit">Login</button>
-									<label> <input type="checkbox" checked="checked"
-										name="remember"> Remember me
-									</label>
-								</div>
-
-								<div class="container" style="background-color: #f1f1f1">
-									<button type="button"
-										onclick="document.getElementById('id01').style.display='none'"
-										class="cancelbtn">Cancel</button>
-									<span class="psw">Forgot <a href="#">password?</a></span>
-								</div>
-							</form>
-							<script>
-								// Get the modal
-								var modal = document.getElementById('id01');
-
-								// When the user clicks anywhere outside of the modal, close it
-								window.onclick = function(event) {
-									if (event.target == modal) {
-										modal.style.display = "none";
+	<script>
+		$.getScript(
+						"https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js",
+						function() {
+							particlesJS('particles-js', {
+								"particles" : {
+									"number" : {
+										"value" : 80,
+										"density" : {
+											"enable" : true,
+											"value_area" : 800
+										}
+									},
+									"color" : {
+										"value" : "#ffffff"
+									},
+									"shape" : {
+										"type" : "circle",
+										"stroke" : {
+											"width" : 0,
+											"color" : "#000000"
+										},
+										"polygon" : {
+											"nb_sides" : 5
+										},
+										"image" : {
+											"width" : 100,
+											"height" : 100
+										}
+									},
+									"opacity" : {
+										"value" : 0.5,
+										"random" : false,
+										"anim" : {
+											"enable" : false,
+											"speed" : 1,
+											"opacity_min" : 0.1,
+											"sync" : false
+										}
+									},
+									"size" : {
+										"value" : 5,
+										"random" : true,
+										"anim" : {
+											"enable" : false,
+											"speed" : 40,
+											"size_min" : 0.1,
+											"sync" : false
+										}
+									},
+									"line_linked" : {
+										"enable" : true,
+										"distance" : 150,
+										"color" : "#ffffff",
+										"opacity" : 0.4,
+										"width" : 1
+									},
+									"move" : {
+										"enable" : true,
+										"speed" : 6,
+										"direction" : "none",
+										"random" : false,
+										"straight" : false,
+										"out_mode" : "out",
+										"attract" : {
+											"enable" : false,
+											"rotateX" : 600,
+											"rotateY" : 1200
+										}
 									}
+								},
+								"interactivity" : {
+									"detect_on" : "canvas",
+									"events" : {
+										"onhover" : {
+											"enable" : true,
+											"mode" : "repulse"
+										},
+										"onclick" : {
+											"enable" : true,
+											"mode" : "push"
+										},
+										"resize" : true
+									},
+									"modes" : {
+										"grab" : {
+											"distance" : 400,
+											"line_linked" : {
+												"opacity" : 1
+											}
+										},
+										"bubble" : {
+											"distance" : 400,
+											"size" : 40,
+											"duration" : 2,
+											"opacity" : 8,
+											"speed" : 3
+										},
+										"repulse" : {
+											"distance" : 200
+										},
+										"push" : {
+											"particles_nb" : 4
+										},
+										"remove" : {
+											"particles_nb" : 2
+										}
+									}
+								},
+								"retina_detect" : true,
+								"config_demo" : {
+									"hide_card" : false,
+									"background_color" : "#b61924",
+									"background_image" : "",
+									"background_position" : "50% 50%",
+									"background_repeat" : "no-repeat",
+									"background_size" : "cover"
 								}
-							</script>
-						</div></li>
-				</ul>
+							});
+
+						});
+	</script>
+
+	<div class="container">
+		<div id="login-box">
+			<div class="logo">
+				<img src="https://lorempixel.com/output/people-q-c-100-100-1.jpg"
+					class="img img-responsive img-circle center-block" />
+				<h1 class="logo-caption">
+					<span class="tweak">L</span>ogin
+				</h1>
 			</div>
+			<!-- /.logo -->
+			<div class="controls">
+				<form action="https://localhost:8443/login" method="POST">
+					<input type="text" name="name" placeholder="Username"
+						class="form-control" /> <input type="password" name="password"
+						placeholder="Password" class="form-control" /> <select
+						class="form-control" name="clientType">
+						<option value="clientType" disabled="disabled" selected="selected">Select
+							Type</option>
+						<option value=ADMIN>Administrator</option>
+						<option value=COMPANY>Company</option>
+						<option value=CUSTOMER>Customer</option>
+					</select>
+					<button type="submit" class="btn btn-default btn-block btn-custom">Login</button>
+				</form>
+			</div>
+			<!-- /.controls -->
 		</div>
-	</nav>
+		<!-- /#login-box -->
+	</div>
+	<!-- /.container -->
+	<div id="particles-js"></div>
+	<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>-->
+
 
 </body>
-</html> -->
+</html>
+
+
+<!-- 	<form action="https://localhost:8443/login" method="POST">
+		<p>
+			NAME : <input name="name" type="text">
+		</p>
+		<p>
+			PASSWORD : <input name="password" type="password">
+		</p>
+		<br> <span>Client Type:</span> <br> <input type="radio"
+			name="clientType" value=ADMIN checked> Administrator<br>
+		<input type="radio" name="clientType" value=COMPANY> Company<br>
+		<input type="radio" name="clientType" value=CUSTOMER> Customer<br>
+		<br>
+		<button type="submit">SUBMIT</button>
+	</form> -->
